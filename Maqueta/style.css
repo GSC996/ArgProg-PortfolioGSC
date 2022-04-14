@@ -1,3 +1,18 @@
-img{
-    filter: invert(100%)
+.header{
+    position: relative;
+    width: 1440px;
+    height: 100px;
+    background: #FFFFFF;
+}
+
+#argprg{
+    position: absolute;
+    width: 211px;
+    height: 122px;
+    left: 79px;
+    top: -10px;
+
+    background: url(APLogo-20-20.png);
+    mix-blend-mode: exclusion;
+    opacity: 0.7;
 }
