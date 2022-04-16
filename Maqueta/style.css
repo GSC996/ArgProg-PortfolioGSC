@@ -1,16 +1,49 @@
+/*Header*/
 .header {
-    position: relative;
-    width: 1440px;
-    height: 100px;
-    background: #FFFFFF;
+    width: 100%;
+    height: 120px;
+    position: fixed;
 }
 
-#yoProgramo {
-    margin-left: 10px;
-    padding-top: 50px;
-    display: flex;
-    width: min-content;
+.logoAP {
+    height: 100px;
+    filter: invert(90%);
+
 }
+
+.yoProgramo {
+    color: #333;
+}
+
+span.d-flex {
+    float: right;
+
+}
+
+[class="navbar-nav me-auto mb-2 mb-lg-0"] li {
+    margin-right: 1em;
+    margin-bottom: 1em;
+    margin-top: 1em;
+
+}
+
+.facebook {
+    height: 40px;
+    opacity: 0.8;
+
+}
+
+.instagram {
+    height: 40px;
+    opacity: 0.8;
+
+}
+
+/*AcercaDe*/
+
+
+
+/*
 
 .footer {
     position: relative;
@@ -22,3 +55,151 @@
 .fotoPerfil{
     border: inset 50px white;
 }
+*/
+/*
+.container{
+    width: 100%;
+    height: 600px;
+
+}
+#hero {
+
+}
+
+#cv {
+    height: 180px;
+    width: 250px;
+
+}
+
+#portada {
+    position: absolute;
+    top: 20px;
+    left: 77px;
+
+}
+
+.img-move-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+    margin: 10px auto;
+}
+
+@media (min-width: 769px) {
+    .img-move {
+        position: absolute;
+        width: 55%;
+    }
+
+    .img-move-1 {
+        left: 0;
+        height: 25% auto;
+    }
+
+    .img-move-2 {
+        right: 0;
+        bottom: 0;
+    }
+}
+.container {
+    width: 100%;
+    height: 900px;
+    background-color: white;
+}
+
+.img-fluid.rounded.float-start {
+    height: 70%;
+    position: absolute;
+    left: 10%;
+    top: 20%;
+    z-index: 30;
+    overflow: hidden;
+}
+
+.img-fluid.rounded.float-end {
+    height: 60%;
+    position: absolute;
+    right: 10%;
+    top: 30%;
+    z-index: 10;
+    overflow: hidden;
+}
+
+
+h1 {
+    height: 70%;
+    width: 50%;
+    position: absolute;
+    top: 10%;
+    left: 25%;
+    z-index: 20;
+    background: linear-gradient(to bottom right, rgb(252, 78, 62), rgb(133, 250, 197));
+    padding-top: 10%;
+    padding-left: 15%;
+    color: white;
+    font-weight: bolder;
+    overflow: hidden;
+}
+
+*/
+.img{
+    margin:10px auto;
+    border-radius:5px;
+    border: 1px solid #999;
+    padding:13px;
+    width:220px;
+    height:220px;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    background:url(./Recursos/Foto_portada.jpg);
+    background-size: cover;
+    }
+  .img img{
+    width: 100%;
+  }
+  @media all and (min-width: 500px) and (max-width: 1000px)
+  {  
+  .img{
+    margin:20px auto;
+    border-radius:5px;
+    border: 1px solid #999;
+    padding:13px;
+    width:300px;
+    height:300px;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    background:url(./Recursos/Foto_portada.jpg);
+    background-size: cover;
+    
+    }
+  }
+  .img img{
+     width:100%;
+  }
+
+  .caja{
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+  }
+  .box{
+    width: 200px;
+    height: 400px;
+    background: #CCC;
+    overflow: hidden;
+  }
+  
+  .box img{
+    width: 100%;
+    height: auto;
+  }
+  @supports(object-fit: cover){
+      .box img{
+        height: 100%;
+        object-fit: cover;
+        object-position: center center;
+      }
+  }
