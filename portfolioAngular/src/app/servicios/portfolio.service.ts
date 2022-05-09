@@ -9,7 +9,24 @@ export class PortfolioService {
 
   constructor(private http: HttpClient) { }
 
-  obtenerDatos(): Observable<any> {
+  getInfoPersonal(): Observable<any> {
+    return this.http.get('./assets/data/infoPersonalData.json');
+    
+  }
+
+  getExperiencia(): Observable<any> {
+    return this.http.get('./assets/data/experienciaData.json');
+  }
+
+  getEducacion(): Observable<any> {
+    return this.http.get('./assets/data/data.json');
+  }
+
+  getSkills(): Observable<any> {
+    return this.http.get('./assets/data/data.json');
+  }
+
+  getProyectosRealizados(): Observable<any> {
     return this.http.get('./assets/data/data.json');
   }
 }

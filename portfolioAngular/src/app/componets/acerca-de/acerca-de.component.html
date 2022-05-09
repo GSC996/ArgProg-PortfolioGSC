@@ -1,8 +1,12 @@
-<section class="container-fluid mt-0" id="acercaDe">
-    <div class="container-fluid mt-0" style="height: 750px;">
-        <div class="hero">
+<section class="row" id="acercaDe">
+    <div class="col">
+        <div class="row hero" style="background-image: url({{miInfoPersonal.imageBack}});">
             <div class="imgCV">
-                <img id="cv" src="/assets/Recursos/foto_CV.jpg" />
+                <img id="cv" [src]="miInfoPersonal.image" />
+            </div>
+            <div class="col">
+                <h1>{{miInfoPersonal.name}}</h1>
+                <h3>{{miInfoPersonal.position}}</h3>
             </div>
         </div>
         <div class="container-fluid mt-0" id="nomb">
@@ -10,18 +14,14 @@
                 <a href="#" id="lapiz" onClick="abrirModalDatosPersonales();" class="btn-right"><i
                         class="fa fa-pen fa-2x"></i></a>
             </div>
-            <h1>Gustavo Silvestre Coutinho</h1>
-            <h3>Desarrollador Web Full Stack Jr</h3>
         </div>
-
-        <div class="container-fluid mt-2" id="textAD">
-            <p class="infoProfesional">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis magnam et
-                nostrum
-                necessitatibus dicta excepturi sunt ullam unde natus, numquam nam ratione repudiandae voluptate maiores
-                velit,
-                aspernatur facere maxime laudantium. Labore nam blanditiis ullam possimus beatae sunt error corrupti
-                delectus
-                saepe voluptatum harum dolores quae rerum ipsam, reprehenderit, laudantium sint!</p>
+        <div class="container-fluid justify-content-center px-0">
+            <div class="row mt-2">
+                <h2>Acerca de mi</h2>
+            </div>
+            <div class="row mt-1">
+                <p class="col">{{miInfoPersonal.acercaDe}}</p>
+            </div>
         </div>
     </div>
 </section>

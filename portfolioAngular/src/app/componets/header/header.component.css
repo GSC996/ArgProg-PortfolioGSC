@@ -1,10 +1,12 @@
 /*Header*/
+
 .header {
     position: sticky;
     top: 0;
     width: auto;
     height: 100px;
     z-index: 100;
+    margin-bottom: 4em;
 }
 
 .logoAP {
@@ -26,17 +28,12 @@ span.d-flex {
     margin-top: 1em;
 }
 
-.facebook {
+.linkedin {
     height: 40px;
     opacity: 0.8;
 }
 
-.instagram {
+.github {
     height: 40px;
     opacity: 0.8;
-}
-
-main {
-    position: relative;
-    top: -4em;
 }
