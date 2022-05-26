@@ -1,0 +1,124 @@
+<div class="row edu main-container">
+    <h1>Historial academico</h1>
+    <div class="text-center">
+        <button type="button" class="btn btn-success" (clik)="onOpenModal('add')">
+            <a class="nav-link" style="color: #fff">
+                Anadir Educacion<span class="sr-only">(current)</span></a>
+        </button>
+    </div>
+    <div id="main-container">
+        <div class="col-lg-12" *ngFor="let educacion of educaciones">
+
+            <div class="container">
+                <div class="row align-items-start">
+                    <div class="col">
+                        <img src="{{educacion.imagen_logoInst}}" alt="{{educacion.institucion}}" width="100px" />
+                    </div>
+                    <div class="col">
+                        <h3>{{educacion.titulo}}</h3>
+                    </div>
+                    <div class="col">
+                        <h3>{{educacion.institucion}}</h3>
+                    </div>
+                    <div class="col">
+                        <h3>{{educacion.fecha_inicio}}</h3>
+                    </div>
+                    <div class="col">
+                        <h3>{{educacion.fecha_fin}}</h3>
+                    </div>
+
+                    <div class="col text-center">
+                        <a (click)="onOpenModal('edit', educacion)" class="btn btn-primary tooltips"
+                            data-placement="top" data-toggle="tooltip" data-original-title="Editar"><i
+                                class="fa fa-pencil"></i></a>
+                        <a (click)="onOpenModal('delete', educacion)" class="btn btn-secondary tooltips"
+                            data-placement="top" data-toggle="tooltip" data-original-title="Eliminar"><i
+                                class="fa fa-times"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Modal add Edu-->
+
+<div class="modal fade" id="AddEducacionModal" tabindex="-1" role="dialog" aria-labelledby="addEducacionModalLabel"
+    aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addEducacionModalLabel">Aniadir Edu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form #addForm="ngForm" (ngSubmit)="onAddEducacion(addForm)">
+
+                    <div class="form-group">
+                        <label for="titulo">Titulo</label>
+                        <input type="text" ngModel name="titulo" class="form-control" id="titulo" placeholder="Titulo"
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <label for="institucion">Institucion</label>
+                        <input type="text" ngModel name="institucion" class="form-control" id="institucion"
+                            placeholder="Institucion" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_inicio">Fecha de inicio</label>
+                        <input type="text" ngModel name="fecha_inicio" class="form-control" id="fecha_inicio"
+                            placeholder="Fecha de inicio" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_fin">Fecha de egreso</label>
+                        <input type="text" ngModel name="fecha_fin" class="form-control" id="fecha_fin"
+                            placeholder="Fecha de egreso" />
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen_logoInst">Url logo institucion</label>
+                        <input type="text" ngModel name="imagen_logoInst" class="form-control" id="imagen_logoInst"
+                            placeholder="Url al logo de la institucion">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="add-educacion-form" class="btn btn-secondary"
+                            data-dismiss="modal">Cerrar</button>
+                        <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Guardar
+                            Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
