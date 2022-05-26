@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { PortfolioService } from 'src/app/servicios/portfolio.service';
+import { PortfolioService } from 'src/app/appVieja/servicios/portfolio.service';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class FooterComponent implements OnInit {
+export class HeaderComponent implements OnInit {
   miPortfolio: any;
   constructor(private datosPortfolio: PortfolioService) { }
 
@@ -16,9 +16,4 @@ export class FooterComponent implements OnInit {
       this.miPortfolio = data;
     });
   }
-
 }
-
-
-
-
