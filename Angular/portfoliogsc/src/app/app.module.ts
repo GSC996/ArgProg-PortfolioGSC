@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EducacionComponent } from './componentes/educacion/educacion.component';
 import { ExperienciaComponent } from './componentes/experiencia/experiencia.component';
+import { SkillComponent } from './componentes/skill/skill.component';
+import { ProyectoComponent } from './componentes/proyecto/proyecto.component';
+import { FooterComponent } from './componentes/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { ExperienciaComponent } from './componentes/experiencia/experiencia.comp
     NavbarComponent,
     PersonaComponent,
     EducacionComponent,
-    ExperienciaComponent
+    ExperienciaComponent,
+    SkillComponent,
+    ProyectoComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
