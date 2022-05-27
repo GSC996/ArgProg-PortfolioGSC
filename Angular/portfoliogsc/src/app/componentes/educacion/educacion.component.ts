@@ -13,7 +13,7 @@ export class EducacionComponent implements OnInit {
 
   public educaciones: Educacion[] = [];
   public updateEducacion: Educacion | undefined;
-  public deleteEducaciones: Educacion | undefined;
+  public deleteEducacion: Educacion | undefined;
 
   constructor(private educacionService: EducacionService) { }
 
@@ -33,12 +33,13 @@ export class EducacionComponent implements OnInit {
   public onOpenModal(mode: string, educacion?: Educacion): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
+    button.type = 'button';
     button.style.display = 'none';
     button.setAttribute('data-toggle', 'modal');
     if (mode === 'add') {
       button.setAttribute('data-target', '#addEducacionModal');
     } else if (mode === 'delete') {
-      this.deleteEducaciones = educacion;
+      this.deleteEducacion = educacion;
       button.setAttribute('data-target', '#deleteEducacionModal');
     } else if (mode === 'edit') {
       this.updateEducacion = educacion;
@@ -47,7 +48,7 @@ export class EducacionComponent implements OnInit {
     container?.appendChild(button);
     button.click();
   }
-  public onAddEducacion(addForm: NgForm) {
+  public onAddEducacion(addForm: NgForm): void {
     document.getElementById('add-educacion-form')?.click();
     this.educacionService.addEducacion(addForm.value).subscribe(
       {

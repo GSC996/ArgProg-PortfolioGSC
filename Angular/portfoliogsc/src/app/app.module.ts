@@ -8,13 +8,15 @@ import { PersonaComponent } from './componentes/persona/persona.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { EducacionComponent } from './componentes/educacion/educacion.component';
+import { ExperienciaComponent } from './componentes/experiencia/experiencia.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     PersonaComponent,
-    EducacionComponent
+    EducacionComponent,
+    ExperienciaComponent
   ],
   imports: [
     BrowserModule,
