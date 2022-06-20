@@ -62,7 +62,7 @@
                         <form #addForm="ngForm" (ngSubmit)="onAddProyecto(addForm)">
                             <div class="mb-3">
                                 <label for="nombre" class="col-form-label">Nombre</label>
-                                <input type="text" ngModel name="nomnre" class="form-control" id="nombre"
+                                <input type="text" ngModel name="nombre" class="form-control" id="nombre"
                                     placeholder="Nombre del proyecto" required>
                             </div>
                             <div class="mb-3">
@@ -81,9 +81,10 @@
                                     placeholder="Url de la imagen del proyecto" />
                             </div>
                             <div class="mb-3">
-                                <label for="imagen_logoInst" class="col-form-label">Url logo institucion</label>
-                                <input type="text" ngModel name="imagen_logoInst" class="form-control"
-                                    id="imagen_logoInst" placeholder="Url al logo de la institucion">
+                                <label for="descripcion" class="col-form-label">descripcion</label>
+                                <input type="text" ngModel name="descripcion"
+                                    class="form-control" id="descripcion"
+                                    placeholder="descripcion">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="add-proyecto-form" class="btn btn-secondary"
@@ -153,7 +154,7 @@
 
         <!--Modal delete Proy-->
 
-        <div class="modal fade" data-bs-toggle="modal" data-bs-target="#deleteModelLabel" id="deletePrpyectoModal"
+        <div class="modal fade" data-bs-toggle="modal" data-bs-target="#deleteModelLabel" id="deleteProyectoModal"
             tabindex="-1" aria-labelledby="deleteProyectoModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

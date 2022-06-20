@@ -1,10 +1,9 @@
 <div *ngIf="persona">
-    <h1>{{persona.foto_perfil}}<br>{{persona.apellido}}</h1>
     <section class="row" id="acercaDe">
         <div class="col">
             <div class="row hero" style="background-image: url({{persona.foto_portada}});">
                 <div class="imgCV">
-                    <img id="cv" [src]="persona.foto_perfil" />
+                    <img id="cv" src="{{persona.foto_perfil}}" />
                 </div>
                 <div class="col">
                     <h1>{{persona.nombre}}{{persona.apellido}}</h1>
