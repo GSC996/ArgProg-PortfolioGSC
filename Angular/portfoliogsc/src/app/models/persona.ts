@@ -1,14 +1,14 @@
 export interface Persona{
     
     id:number;
-    nombre:string;
-    apellido:string;
-    ocupacion:string;
-    fecha_nacimiento:string;
-    email:string;
-    telefono:string;
-    sobre_mi:string;
-    foto_perfil:string;
-    foto_portada:string;
+    nombre:String;
+    apellido:String;
+    ocupacion:String;
+    fecha_nacimiento:String;
+    email:String;
+    telefono:String;
+    sobre_mi:String;
+    foto_perfil:String;
+    foto_portada:String;
 
 }
