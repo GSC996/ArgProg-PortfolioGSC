@@ -1,49 +1,48 @@
-<div class="row exp main-container">
-    <h1>Experiencia laboral</h1>
-    <div class="text-center">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#AddExperienciaModal"
-            (click)="onOpenModal('add')">Anadir Experiencia
-            <span class="sr-only">(current)</span>
-        </button>
-    </div>
-    <div id="main-container">
-        <div class="col-lg-12" *ngFor="let experiencia of experiencias">
+<section class="main-container mx-5 mb-5">
 
-            <div class="container">
-                <div class="row align-items-start">
-                    <div class="col">
-                        <img src="{{experiencia.imagen_logoEmp}}" alt="{{experiencia.empresa}}" width="100px" />
-                    </div>
-                    <div class="col">
-                        <h4>{{experiencia.cargo}}</h4>
-                    </div>
-                    <div class="col">
-                        <h4>{{experiencia.empresa}}</h4>
-                    </div>
-                    <div class="col">
-                        <h5>{{experiencia.fecha_inicio}}</h5>
-                    </div>
-                    <div class="col">
-                        <h5>{{experiencia.fecha_fin}}</h5>
-                    </div>
-
-                    <div class="col text-center">
-                        <button (click)="onOpenModal('edit', experiencia)" type="button"
-                            class="btn btn-primary tooltips" data-bs-toggle="modal"
-                            data-bs-target="#editExperienciaModal" data-placement="top" data-toggle="tooltip"
-                            data-original-title="Edit"><i class="fa fa-pencil"></i>
-                        </button>
-                        <button (click)="onOpenModal('delete', experiencia)" type="button"
-                            class="btn btn-secondary tooltips" data-bs-toggle="modal"
-                            data-bs-target="#deleteExperienciaModal" data-placement="top" data-toggle="tooltip"
-                            data-original-title="Delete"><i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div class="row mb-4">
+        <div class="col-auto text-left my-auto">
+            <h2 class="my-auto p-3 bg-opacity-50 border border-3 rounded-3">Experiencia Laboral</h2>
+        </div>
+        <div class="col text-right my-2 my-sm-auto">
+            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#AddExperienciaModal"
+                (click)="onOpenModal('add')">Añadir
+                <span class="sr-only">(current)</span>
+            </button>
         </div>
     </div>
 
+    <div class="row align-items-start ml-2 my-2 border border-3 rounded-3 border-light"
+        *ngFor="let experiencia of experiencias">
+        <div class="col-auto my-auto">
+            <div class="logo" style="background-image: url({{experiencia.imagen_logoEmp}});"></div>
+        </div>
+        <div class="col-8 col-lg my-auto">
+            <h4 id="contenido">{{experiencia.cargo}}</h4>
+        </div>
+        <div class="col-12 col-lg my-auto">
+            <h4 id="contenido">{{experiencia.empresa}}</h4>
+        </div>
+        <div class="col-auto col-md-1 my-auto col-lg-auto">
+            <h5 id="contenido">{{experiencia.fecha_inicio}}</h5>
+        </div>
+        <div class="col-auto my-auto">
+            <h5 id="contenido">-</h5>
+        </div>
+        <div class="col col-lg-2 my-auto">
+            <h5 id="contenido">{{experiencia.fecha_fin}}</h5>
+        </div>
+        <div class="col-12 col-sm-auto text-right mb-2 my-lg-auto">
+            <button (click)="onOpenModal('edit', experiencia)" type="button" class="btn btn-light tooltips mr-1"
+                data-bs-toggle="modal" data-bs-target="#editExperienciaModal" data-placement="top" data-toggle="tooltip"
+                data-original-title="Edit"><i class="fa fa-pencil"></i>
+            </button>
+            <button (click)="onOpenModal('delete', experiencia)" type="button" class="btn btn-secondary tooltips"
+                data-bs-toggle="modal" data-bs-target="#deleteExperienciaModal" data-placement="top"
+                data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
 
     <!--Modal addExperiencia-->
 
@@ -53,9 +52,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addExperienciaModalLabel">Aniadir Experiencia laboral</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddExperiencia(addForm)">
@@ -87,7 +84,7 @@
                         <div class="modal-footer">
                             <button type="button" id="add-experiencia-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
-                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary">Guardar</button>
+                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
                         </div>
                     </form>
                 </div>
@@ -102,17 +99,15 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editExperienciaModalLabel">Editar {{updateExperiencia.cargo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title" id="editExperienciaModalLabel">Editar {{updateExperiencia?.cargo}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form #editForm="ngForm">
                         <div class="mb-3">
                             <label for="cargo" class="col-form-label">Cargo</label>
-                                <input type="text" ngModel="{{updateExperiencia?.cargo}}" name="cargo"
-                                    class="form-control" id="cargo" placeholder="Cargp" aria-describedby="emailHelp">
+                            <input type="text" ngModel="{{updateExperiencia?.cargo}}" name="cargo" class="form-control"
+                                id="cargo" placeholder="Cargp" aria-describedby="emailHelp">
                         </div>
                         <input type="hidden" ngModel="{{updateExperiencia?.idExp}}" name="idExp" class="form-control"
                             id="idExp" placeholder="" />
@@ -139,7 +134,7 @@
                         <div class="modal-footer">
                             <button type="button" id="edit-experiencia-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
-                            <button (click)="onEditExperiencia(editForm.value)" class="btn btn-primary"
+                            <button (click)="onEditExperiencia(editForm.value)" class="btn btn-light"
                                 data-bs-dismiss="modal" type="submit">Guardar</button>
                         </div>
                     </form>
@@ -156,8 +151,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="deleteExperienciaModalLabel">Eliminar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>Estas Seguro de que queres eliminar esta seccion {{deleteExperiencia?.cargo}}?</p>
@@ -172,9 +166,10 @@
     </div>
 
     <!--Nada que mostrar-->
+
     <div *ngIf="experiencias?.length == 0" class="col-lg-12 col-md-12 col-sl-12">
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">Campo vacio</h4>
         </div>
     </div>
-</div>
+</section>

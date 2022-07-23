@@ -1,3 +1,42 @@
-#boton{
+/*Skills*/
+
+#boton {
     display: block;
+    width: 38px;
+    height: 38px;
+    margin: 5px 0px;
+}
+
+.logo {
+    object-fit: fit;
+    height: 100px;
+    width: 100px;
+    margin: 10px 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+progress {
+    width: 100%;
+    height: 30px;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: gainsboro;
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background: skyblue;
+    border-radius: 10px;
+}
+
+.box {
+    display: grid;
+    gap: 1rem;
+    grid-auto-rows: auto;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 35rem), 1fr));
 }

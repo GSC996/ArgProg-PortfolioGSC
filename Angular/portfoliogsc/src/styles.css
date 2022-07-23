@@ -1,1 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: monospace;
+}
+
+button.btn-light {
+    background-color: skyblue;
+    border-color: skyblue;
+}
+
+button.btn-secondary {
+    background-color: lightslategray;
+    border-color: lightslategray;
+}

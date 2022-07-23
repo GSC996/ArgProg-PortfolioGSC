@@ -1,32 +1,11 @@
 /*Proyectos*/
 
-.row {
-    padding: 5em;
-    background-color: #ffffff;
-}
-
-.contenedor {
-    width: auto;
-}
-
-.parte1,
-.parte2 {
-    display: inline-block;
-    text-align: justify;
-}
-
-.parte2 {
-    width: auto;
-    height: auto;
-}
-
-.img-proyecto {
-    width: 300px;
+.imagen {
+    object-fit: fill;
     height: 200px;
-    margin-left: auto;
-    margin-right: auto;
-    background-image: url();
+    width: 300px;
+    margin: 5px 0px;
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: top center;
+    background-position: center center;
 }

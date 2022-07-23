@@ -1,31 +1,21 @@
 /*AcercaDe*/
 
-#acercaDe {
-    width: auto;
-    height: auto;
-    padding: 0 5%;
-    display: block;
-
-}
-
 .hero {
-    width: auto;
+    width: 95%;
     height: auto;
-    margin-left: auto;
-    margin-right: auto;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    margin-top: 0;
-    padding-top: 0;
+}
+
+.row.mx-auto{
+    width: 97%;
 }
 
 .imgCV {
     width: 400px;
     height: 500px;
     z-index: 5;
-    position: relative;
-    top: 0;
     margin: 50px 50px;
 }
 
@@ -33,18 +23,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-}
-
-#edit-acercaDe {
-    float: right;
-}
-
-#edit-acercaDe i.fa.fa-pen {
-    color: red;
-}
-
-#nomb {
-    display: contents;
 }
 
 h1 {
@@ -62,58 +40,27 @@ h3 {
     margin-left: 10px;
 }
 
-@media all and (max-width: 813px) {
-    #acercaDe {
-        width: auto;
-        height: auto;
-        padding: 0 5%;
-        display: block;
-        position: relative;
-        top: -4em;
-    }
+@media all and (max-width: 1190px) {
 
     .hero {
-        width: auto;
+        width: 95%;
         height: auto;
-        margin-left: auto;
-        margin-right: auto;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-        margin-top: 0;
-        padding-top: 0;
     }
 
     .imgCV {
         width: 400px;
         height: 500px;
         z-index: 5;
-        position: relative;
-        top: 0;
         margin: 50px 50px;
-
     }
 
     .imgCV img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-    }
-
-    #edit-acercaDe {
-        float: right;
-    }
-
-    #edit-acercaDe i.fa.fa-pen {
-        color: red;
-    }
-
-    .col {
-        width: 100%;
-    }
-
-    #nomb {
-        display: contents;
     }
 
     h1 {
@@ -134,25 +81,13 @@ h3 {
 }
 
 @media all and (max-width: 558px) {
-    #acercaDe.row {
-        width: 100%;
-        height: auto;
-        display: block;
-        margin: 0;
-        padding: 0 5px 0;
-
-    }
 
     .hero {
-        width: 100%;
+        width: 97%;
         height: auto;
-        margin-left: auto;
-        margin-right: auto;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: center center;
-        margin-top: 0;
-        padding-top: 0;
     }
 
     .imgCV {
@@ -170,24 +105,7 @@ h3 {
         height: 100%;
         object-fit: cover;
     }
-
-    #edit-acercaDe {
-        float: right;
-    }
-
-    #edit-acercaDe i.fa.fa-pen {
-        color: red;
-    }
-
-    .col {
-        width: 100%;
-
-    }
-
-    #nomb {
-        display: contents;
-    }
-
+s
     h1 {
         color: #fff;
         position: relative;

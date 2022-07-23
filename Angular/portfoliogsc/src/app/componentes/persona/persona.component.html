@@ -1,79 +1,40 @@
-<div *ngIf=" persona">
-    <section class="row" id="acercaDe">
-        <div class="col">
-            <div class="row hero" style="background-image: url({{persona.foto_portada}});">
-                <div class="imgCV">
-                    <img id="cv" src="{{persona.foto_perfil}}" />
-                </div>
-                <div class="col">
-                    <h1>{{persona.nombre}}{{persona.apellido}}</h1>
-                    <h3>{{persona.ocupacion}}</h3>
-                </div>
-            </div>
+<section class="main-container mx-4 mb-5">
 
-            <div class="col text-right">
-                <button (click)="onOpenModal('edit', persona)" type="button" class="btn btn-primary tooltips"
+    <div class="row" *ngIf="persona">
+
+        <div class="row mx-auto hero rounded-3" style="background-image: url({{persona.foto_portada}});">
+            <div class="col-auto imgCV ">
+                <img id="cv" class="rounded-3" src="{{persona.foto_perfil}}" />
+            </div>
+            <div class="col-auto">
+                <h1>{{persona.nombre}} {{persona.apellido}}</h1>
+                <h3>{{persona.ocupacion}}</h3>
+            </div>
+        </div>
+        <div class="row align-items-start mx-auto my-2 border border-3 rounded-3 border-light">
+        <div class="row mx-auto p-0">
+            <div class="col text-left my-3 p-0">
+                <h4 class="ms-2"><b>Contacto</b><br>Email: {{persona.email}}<br>Cel: {{persona.telefono}}</h4>
+            </div>
+            <div class="col-auto text-right my-3 p-0">
+                <button (click)="onOpenModal('edit', persona)" type="button" class="btn btn-light btn-lg tooltips"
                     data-bs-toggle="modal" data-bs-target="#editPersonaModal" data-placement="top" data-toggle="tooltip"
                     data-original-title="Edit"><i class="fa fa-pencil"></i>
                 </button>
             </div>
-
-            <!--<div class="container-fluid mt-0" id="nomb">
-                <div class="btn-edit" id="edit-acercaDe">
-                    <a href="#" id="lapiz" onClick="abrirModalDatosPersonales();" class="btn-right"><i
-                            class="fa fa-pen fa-2x"></i></a>
-                </div>
-            </div>-->
-            <div class="container-fluid justify-content-center px-0">
-                <div class="row mt-2">
-                    <h2>Acerca de mi</h2>
-                </div>
-                <div class="row mt-1">
-                    <p class="col">{{persona.sobre_mi}}</p>
-                </div>
-            </div>
         </div>
-    </section>
-</div>
 
-<!--
-<div id="main-container" *ngFor="let persona of personas">
-    <div class="col-lg-12" >
-
-        <div class="container">
-            <div class="row align-items-start">
-                <div class="col">
-                    <img src="{{persona.foto_perfil}}" width="100px" />
-                </div>
-                <div class="col">
-                    <h4>{{persona.nombre}}</h4>
-                </div>
-                <div class="col">
-                    <h4>{{persona.apellido}}</h4>
-                </div>
-                <div class="col">
-                    <h5>{{persona.ocupacion}}</h5>
-                </div>
-                <div class="col">
-                    <h5>{{persona.sobre_mi}}</h5>
-                </div>
-
-                <div class="col text-center">
-                    <button (click)="onOpenModal('edit', persona)" type="button" class="btn btn-primary tooltips"
-                        data-bs-toggle="modal" data-bs-target="#editEducacionModal" data-placement="top"
-                        data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i>
-                    </button>
-                    <button (click)="onOpenModal('delete', persona)" type="button"
-                        class="btn btn-secondary tooltips" data-bs-toggle="modal"
-                        data-bs-target="#deleteEducacionModal" data-placement="top" data-toggle="tooltip"
-                        data-original-title="Delete"><i class="fa fa-times"></i>
-                    </button>
-                </div>
+        <div class="row mx-auto p-0">
+            <div class="col-12">
+                <h2>Acerca de mí</h2>
             </div>
-        </div>
+            <div class="col-12">
+                <p>{{persona.sobre_mi}}</p>
+            </div>
+        </div></div>
     </div>
-</div>
--->
+
+</section>
 
 <!--Modal EditPers-->
 
@@ -83,63 +44,63 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="editPersonaModalLabel">Editar {{updatePersona?.nombre}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form #editForm="ngForm">
                     <div class="mb-3">
-                        <label for="nombre" class="col-form-label">nombre</label>
+                        <label for="nombre" class="col-form-label">Nombre</label>
                         <input type="text" ngModel="{{updatePersona?.nombre}}" name="nombre" class="form-control"
-                            id="nombre" placeholder="nombre" aria-describedby="emailHelp">
+                            id="nombre" placeholder="Nombres" aria-describedby="emailHelp">
                     </div>
                     <input type="hidden" ngModel="{{updatePersona?.id}}" name="id" class="form-control" id="id"
                         placeholder="" />
                     <div class="mb-3">
-                        <label for="apellido" class="col-form-label">apellido</label>
+                        <label for="apellido" class="col-form-label">Apellido</label>
                         <input type="text" ngModel="{{updatePersona?.apellido}}" name="apellido" class="form-control"
-                            id="apellido" placeholder="apellido" />
+                            id="apellido" placeholder="Apellidos" />
                     </div>
                     <div class="mb-3">
-                        <label for="ocupacion" class="col-form-label">Ocupaciono</label>
+                        <label for="ocupacion" class="col-form-label">Ocupación</label>
                         <input type="text" ngModel="{{updatePersona?.ocupacion}}" name="ocupacion" class="form-control"
-                            id="ocupacion" placeholder="Anio de inicio" />
+                            id="ocupacion" placeholder="Ocupación, cargo o puesto" />
                     </div>
+
                     <div class="mb-3">
-                        <label for="sobre_mi" class="col-form-label">sobre mi</label>
-                        <input type="text" ngModel="{{updatePersona?.sobre_mi}}" name="sobre_mi" class="form-control"
-                            id="sobre_mi" placeholder="Sobre mi" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="fecha_nacimiento" class="col-form-label">fecha_nacimiento</label>
+                        <label for="fecha_nacimiento" class="col-form-label">Fecha de Nacimiento</label>
                         <input type="text" ngModel="{{updatePersona?.fecha_nacimiento}}" name="fecha_nacimiento"
-                            class="form-control" id="fecha_nacimiento" placeholder="fecha_nacimiento">
+                            class="form-control" id="fecha_nacimiento" placeholder="Fecha de nacimiento dd/mm/aaaa">
                     </div>
                     <div class="mb-3">
-                        <label for="telefono" class="col-form-label">telefono</label>
+                        <label for="telefono" class="col-form-label">Teléfono</label>
                         <input type="text" ngModel="{{updatePersona?.telefono}}" name="telefono" class="form-control"
-                            id="telefono" placeholder="Url al logo de la apellido">
+                            id="telefono" placeholder="Teléfono de contacto">
                     </div>
                     <div class="mb-3">
-                        <label for="foto_perfil" class="col-form-label">foto_perfil</label>
-                        <input type="text" ngModel="{{updatePersona?.foto_perfil}}" name="foto_perfil"
-                            class="form-control" id="foto_perfil" placeholder="foto_perfil">
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="col-form-label">email</label>
+                        <label for="email" class="col-form-label">E-mail</label>
                         <input type="text" ngModel="{{updatePersona?.email}}" name="email" class="form-control"
-                            id="email" placeholder="email" />
+                            id="email" placeholder="Correo electrónico" />
                     </div>
                     <div class="mb-3">
-                        <label for="foto_portada" class="col-form-label">foto_portada</label>
+                        <label for="foto_perfil" class="col-form-label">Foto de Perfil</label>
+                        <input type="text" ngModel="{{updatePersona?.foto_perfil}}" name="foto_perfil"
+                            class="form-control" id="foto_perfil" placeholder="Url de la foto de perfil">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="foto_portada" class="col-form-label">Portada</label>
                         <input type="text" ngModel="{{updatePersona?.foto_portada}}" name="foto_portada"
-                            class="form-control" id="foto_portada" placeholder="foto_portada" />
+                            class="form-control" id="foto_portada" placeholder="Url de la imagen de portada" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="sobre_mi" class="col-form-label">Acerca de mí</label>
+                        <textarea type="text" ngModel="{{updatePersona?.sobre_mi}}" name="sobre_mi" class="form-control"
+                            id="sobre_mi" placeholder="Descripción personal y profecional"></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" id="edit-persona-form" class="btn btn-secondary"
                             data-bs-dismiss="modal">Cerrar</button>
-                        <button (click)="onEditPersona(editForm.value)" class="btn btn-primary" data-bs-dismiss="modal"
+                        <button (click)="onEditPersona(editForm.value)" class="btn btn-light" data-bs-dismiss="modal"
                             type="submit">Guardar</button>
                     </div>
                 </form>

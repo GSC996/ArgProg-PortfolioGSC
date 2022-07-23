@@ -1,9 +1,15 @@
 /*Experiencia*/
 
-.experiencia {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding: 2em 5em;
-    height: auto;
-    width: 100%;
+.logo {
+    object-fit: fit;
+    height: 100px;
+    width: 100px;
+    margin: 5px 0px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+
+#contenido {
+    margin: auto;
 }
