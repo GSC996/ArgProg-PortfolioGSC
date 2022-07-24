@@ -1,11 +1,11 @@
 <section class="main-container mx-5 mb-5">
 
-    <div class="row mb-4">
-        <div class="col-auto text-left my-auto">
-            <h2 class="my-auto p-3 bg-opacity-50 border border-3 rounded-3">Proyectos Realizados</h2>
+    <div class="row mb-4 border border-3 rounded-3">
+        <div class="col text-left my-auto">
+            <h2 class="my-auto p-3 bg-opacity-50">Proyectos Realizados</h2>
         </div>
-        <div class="col text-right my-2 my-sm-auto">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#AddProyectoModal"
+        <div class="col-auto text-right p-0 m-auto pe-2">
+            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#AddProyectoModal"
                 (click)="onOpenModal('add')">Añadir
                 <span class="sr-only">(current)</span>
             </button>
@@ -50,41 +50,42 @@
     <!--Modal addProy-->
 
     <div class="modal fade" id="AddProyectoModal" tabindex="-1" role="dialog" aria-labelledby="addProyectoModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addProyectoModalLabel">Añadir Proyecto</h5>
+                    <h5 class="modal-title" id="addProyectoModalLabel">Añadir</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddProyecto(addForm)">
                         <div class="mb-3">
-                            <label for="nombre" class="col-form-label">Nombre</label>
+                            <label for="nombre" class="col-form-label">Nombre*</label>
                             <input type="text" ngModel name="nombre" class="form-control" id="nombre"
                                 placeholder="Título del proyecto" required>
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_realizacion" class="col-form-label">Fecha de Realización</label>
-                            <input type="text" ngModel name="fecha_realizacion" class="form-control"
-                                id="fecha_realizacion" placeholder="Año en que se realizó" required />
+                            <label for="fecha_realizacion" class="col-form-label">Fecha de realización*</label>
+                            <input type="number" min="1900" max="2050" ngModel name="fecha_realizacion" class="form-control"
+                                id="fecha_realizacion" placeholder="Año en que se realizó o inició" required />
                         </div>
                         <div class="mb-3">
-                            <label for="url_proyecto" class="col-form-label">Link al Proyecto</label>
-                            <input type="text" ngModel name="url_proyecto" class="form-control" id="url_proyecto"
-                                placeholder="Url del proyecto | Opcional" />
+                            <label for="url_proyecto" class="col-form-label">Link al proyecto</label>
+                            <input type="url" pattern="https://.*" ngModel name="url_proyecto" class="form-control" id="url_proyecto"
+                                placeholder="Url del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
                             <label for="img_proyecto" class="col-form-label">Imagen</label>
-                            <input type="text" ngModel name="img_proyecto" class="form-control" id="img_proyecto"
-                                placeholder="Url de la imagen del proyecto" />
+                            <input type="url" pattern="https://.*" ngModel name="img_proyecto" class="form-control" id="img_proyecto"
+                                placeholder="Url de la imagen del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
-                            <label for="descripcion" class="col-form-label">Descripción</label>
-                            <input type="text" ngModel name="descripcion" class="form-control" id="descripcion"
-                                placeholder="Resumen del proyecto">
+                            <label for="descripcion" class="col-form-label">Descripción*</label>
+                            <textarea type="text" ngModel name="descripcion" class="form-control" id="descripcion"
+                                placeholder="Resumen del proyecto" required></textarea>
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="add-proyecto-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
@@ -98,7 +99,7 @@
     <!--Modal editProy-->
 
     <div class="modal fade" id="editProyectoModal" tabindex="-1" role="dialog" aria-labelledby="editProyectoModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,31 +109,31 @@
                 <div class="modal-body">
                     <form #editForm="ngForm">
                         <div class="mb-3">
-                            <label for="nombre" class="col-form-label">Nombre</label>
+                            <label for="nombre" class="col-form-label">Nombre*</label>
                             <input type="text" ngModel="{{updateProyecto?.nombre}}" name="nombre" class="form-control"
                                 id="nombre" placeholder="Título del proyecto" aria-describedby="emailHelp">
                         </div>
                         <input type="hidden" ngModel="{{updateProyecto?.idProy}}" name="idProy" class="form-control"
                             id="idProy" placeholder="" />
                         <div class="mb-3">
-                            <label for="fecha_realizacion" class="col-form-label">Fecha de Realización</label>
+                            <label for="fecha_realizacion" class="col-form-label">Fecha de Realización*</label>
                             <input type="text" ngModel="{{updateProyecto?.fecha_realizacion}}" name="fecha_realizacion"
                                 class="form-control" id="fecha_realizacion" placeholder="Año en que se realizó" />
                         </div>
                         <div class="mb-3">
                             <label for="url_proyecto" class="col-form-label">Link al Proyecto</label>
-                            <input type="text" ngModel="{{updateProyecto?.url_proyecto}}" name="url_proyecto"
-                                class="form-control" id="url_proyecto" placeholder="Url del proyecto | Opcional" />
+                            <input type="url" pattern="https://.*" ngModel="{{updateProyecto?.url_proyecto}}" name="url_proyecto"
+                                class="form-control" id="url_proyecto" placeholder="Url del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
                             <label for="img_proyecto" class="col-form-label">Imagen</label>
-                            <input type="text" ngModel="{{updateProyecto?.img_proyecto}}" name="img_proyecto"
-                                class="form-control" id="img_proyecto" placeholder="Url de la imagen del proyecto" />
+                            <input type="url" pattern="https://.*" ngModel="{{updateProyecto?.img_proyecto}}" name="img_proyecto"
+                                class="form-control" id="img_proyecto" placeholder="Url de la imagen del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
-                            <label for="descripcion" class="col-form-label">Descripción</label>
-                            <input type="text" ngModel="{{updateProyecto?.descripcion}}" name="descripcion"
-                                class="form-control" id="descripcion" placeholder="Resumen del proyecto">
+                            <label for="descripcion" class="col-form-label">Descripción*</label>
+                            <textarea type="text" ngModel="{{updateProyecto?.descripcion}}" name="descripcion"
+                                class="form-control" id="descripcion" placeholder="Resumen del proyecto"></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" id="edit-proyecto-form" class="btn btn-secondary"
@@ -148,8 +149,8 @@
 
     <!--Modal deleteProy-->
 
-    <div class="modal fade" data-bs-toggle="modal" data-bs-target="#deleteModelLabel" id="deleteProyectoModal"
-        tabindex="-1" aria-labelledby="deleteProyectoModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteProyectoModal"
+        tabindex="-1" aria-labelledby="deleteProyectoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -162,7 +163,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="button" (click)="onDeleteProyecto(deleteProyecto!.idProy)" class="btn btn-danger"
-                        data-dismiss="modal">Si</button>
+                        data-bs-dismiss="modal">Si</button>
                 </div>
             </div>
         </div>

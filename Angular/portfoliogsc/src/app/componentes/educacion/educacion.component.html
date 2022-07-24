@@ -1,12 +1,12 @@
 <section class="main-container mx-5 mb-5">
 
-    <div class="row mb-4">
-        <div class="col-auto text-left my-auto">
-            <h2 class="my-auto p-3 bg-opacity-50 border border-3 rounded-3">Historial académico</h2>
+    <div class="row mb-4 border border-3 rounded-3">
+        <div class="col text-left my-auto">
+            <h2 class="my-auto p-3 bg-opacity-50 ">Historial académico</h2>
         </div>
-        <div class="col text-right my-2 my-sm-auto">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#AddEducacionModal"
-                (click)="onOpenModal('add')">Añadir
+        <div class="col-auto text-right p-0 m-auto pe-2">
+            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal"
+                data-bs-target="#AddEducacionModal" (click)="onOpenModal('add')">Añadir
                 <span class="sr-only">(current)</span>
             </button>
         </div>
@@ -47,7 +47,7 @@
     <!--Modal addEdu-->
 
     <div class="modal fade" id="AddEducacionModal" tabindex="-1" role="dialog" aria-labelledby="addEducacionModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -57,31 +57,32 @@
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddEducacion(addForm)">
                         <div class="mb-3">
-                            <label for="titulo" class="col-form-label">Título</label>
+                            <label for="titulo" class="col-form-label">Título*</label>
                             <input type="text" ngModel name="titulo" class="form-control" id="titulo"
                                 placeholder="Título o nombre de la carrera" required>
                         </div>
                         <div class="mb-3">
-                            <label for="institucion" class="col-form-label">Institución</label>
+                            <label for="institucion" class="col-form-label">Institución*</label>
                             <input type="text" ngModel name="institucion" class="form-control" id="institucion"
                                 placeholder="Nombre de la institución" required />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_inicio" class="col-form-label">Fecha de Inicio</label>
-                            <input type="text" ngModel name="fecha_inicio" class="form-control" id="fecha_inicio"
-                                placeholder="Año en que comenzó la carrera" required />
+                            <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
+                            <input type="number" min="1900" max="2050" ngModel name="fecha_inicio" class="form-control"
+                                id="fecha_inicio" placeholder="Año en que comenzó la carrera" required />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_fin" class="col-form-label">Fecha de Egreso</label>
+                            <label for="fecha_fin" class="col-form-label">Año de egreso | Cursando</label>
                             <input type="text" ngModel name="fecha_fin" class="form-control" id="fecha_fin"
-                                placeholder="Año de finalización o estimación / Cursando" />
+                                placeholder="Año de finalización o estimación | Cursando" />
                         </div>
                         <div class="mb-3">
-                            <label for="imagen_logoInst" class="col-form-label">Logo de la Institución</label>
-                            <input type="text" ngModel name="imagen_logoInst" class="form-control" id="imagen_logoInst"
-                                placeholder="Url del logo de la institución">
+                            <label for="imagen_logoInst" class="col-form-label">Logo de la institución</label>
+                            <input type="url" pattern="https://.*" ngModel name="imagen_logoInst" class="form-control" id="imagen_logoInst"
+                                placeholder="Url del logo de la institución | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="add-educacion-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
@@ -95,7 +96,7 @@
     <!--Modal editEdu-->
 
     <div class="modal fade" id="editEducacionModal" tabindex="-1" role="dialog"
-        aria-labelledby="editEducacionModalLabel" aria-hidden="true">
+        aria-labelledby="editEducacionModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,34 +106,36 @@
                 <div class="modal-body">
                     <form #editForm="ngForm">
                         <div class="mb-3">
-                            <label for="titulo" class="col-form-label">Título</label>
+                            <label for="titulo" class="col-form-label">Título*</label>
                             <input type="text" ngModel="{{updateEducacion?.titulo}}" name="titulo" class="form-control"
                                 id="titulo" placeholder="Título o nombre de la carrera" aria-describedby="emailHelp">
                         </div>
                         <input type="hidden" ngModel="{{updateEducacion?.idEdu}}" name="idEdu" class="form-control"
                             id="idEdu" placeholder="" />
                         <div class="mb-3">
-                            <label for="institucion" class="col-form-label">Institución</label>
+                            <label for="institucion" class="col-form-label">Institución*</label>
                             <input type="text" ngModel="{{updateEducacion?.institucion}}" name="institucion"
                                 class="form-control" id="institucion" placeholder="Nombre de la institución" />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_inicio" class="col-form-label">Fecha de Inicio</label>
-                            <input type="text" ngModel="{{updateEducacion?.fecha_inicio}}" name="fecha_inicio"
-                                class="form-control" id="fecha_inicio" placeholder="Año en que comenzó la carrera" />
+                            <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
+                            <input type="number" min="1900" max="2050" ngModel="{{updateEducacion?.fecha_inicio}}"
+                                name="fecha_inicio" class="form-control" id="fecha_inicio"
+                                placeholder="Año en que comenzó la carrera" />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_fin" class="col-form-label">Fecha de Egreso</label>
+                            <label for="fecha_fin" class="col-form-label">Año de egreso | Cursando</label>
                             <input type="text" ngModel="{{updateEducacion?.fecha_fin}}" name="fecha_fin"
                                 class="form-control" id="fecha_fin"
-                                placeholder="Año de finalización o estimación / Cursando" />
+                                placeholder="Año de finalización o estimación | Cursando" />
                         </div>
                         <div class="mb-3">
-                            <label for="imagen_logoInst" class="col-form-label">Logo de la Institución</label>
-                            <input type="text" ngModel="{{updateEducacion?.imagen_logoInst}}" name="imagen_logoInst"
-                                class="form-control" id="imagen_logoInst" placeholder="Url del logo de la institución">
+                            <label for="imagen_logoInst" class="col-form-label">Logo de la institución</label>
+                            <input type="url" pattern="https://.*" ngModel="{{updateEducacion?.imagen_logoInst}}" name="imagen_logoInst"
+                                class="form-control" id="imagen_logoInst" placeholder="Url del logo de la institución | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="edit-educacion-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button (click)="onEditEducacion(editForm.value)" class="btn btn-light"
@@ -146,8 +149,9 @@
 
     <!--Modal deleteEdu-->
 
-    <div class="modal fade" data-bs-toggle="modal" data-bs-target="#deleteModelLabel" id="deleteEducacionModal"
-        tabindex="-1" aria-labelledby="deleteEducacionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteEducacionModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleteEducacionModalLabel" aria-hidden="true" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -160,7 +164,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="button" (click)="onDeleteEducacion(deleteEducacion!.idEdu)" class="btn btn-danger"
-                        data-dismiss="modal">Si</button>
+                        data-bs-dismiss="modal">Si</button>
                 </div>
             </div>
         </div>

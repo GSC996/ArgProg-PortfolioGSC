@@ -6,7 +6,7 @@
     width: auto;
     height: 100px;
     z-index: 100;
-    margin-bottom: 4em;
+    margin-bottom: 2em;
 }
 
 .logoAP {
@@ -22,10 +22,8 @@ span.d-flex {
     float: right;
 }
 
-[class="navbar-nav me-auto mb-2 mb-lg-0"] li {
-    margin-right: 1em;
-    margin-bottom: 1em;
-    margin-top: 1em;
+.nav-item {
+    margin: 0.5rem 1rem;
 }
 
 .linkedin {

@@ -1,12 +1,12 @@
 <section class="main-container mx-5 mb-5">
 
-    <div class="row mb-4">
-        <div class="col-auto text-left my-auto">
-            <h2 class="my-auto p-3 bg-opacity-50 border border-3 rounded-3">Experiencia Laboral</h2>
+    <div class="row mb-4 border border-3 rounded-3">
+        <div class="col text-left my-auto">
+            <h2 class="my-auto p-3 bg-opacity-50">Experiencia Laboral</h2>
         </div>
-        <div class="col text-right my-2 my-sm-auto">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#AddExperienciaModal"
-                (click)="onOpenModal('add')">Añadir
+        <div class="col-auto text-right p-0 m-auto pe-2">
+            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal"
+                data-bs-target="#AddExperienciaModal" (click)="onOpenModal('add')">Añadir
                 <span class="sr-only">(current)</span>
             </button>
         </div>
@@ -44,44 +44,46 @@
         </div>
     </div>
 
-    <!--Modal addExperiencia-->
+    <!--Modal addExp-->
 
     <div class="modal fade" id="AddExperienciaModal" tabindex="-1" role="dialog"
-        aria-labelledby="addExperienciaModalLabel" aria-hidden="true">
+        aria-labelledby="addExperienciaModalLabel" aria-hidden="true" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addExperienciaModalLabel">Aniadir Experiencia laboral</h5>
+                    <h5 class="modal-title" id="addExperienciaModalLabel">Añadir</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddExperiencia(addForm)">
                         <div class="mb-3">
-                            <label for="cargo" class="col-form-label">Cargo o posicion</label>
+                            <label for="cargo" class="col-form-label">Cargo o posición*</label>
                             <input type="text" ngModel name="cargo" class="form-control" id="cargo"
-                                placeholder="Cargo/posicion" required>
+                                placeholder="Cargo | Posición" required>
                         </div>
                         <div class="mb-3">
-                            <label for="empresa" class="col-form-label">Empresa o Institucion</label>
+                            <label for="empresa" class="col-form-label">Empresa o institución*</label>
                             <input type="text" ngModel name="empresa" class="form-control" id="empresa"
-                                placeholder="Empresa" required />
+                                placeholder="Nombre de donde realizó el trabajo" required />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_inicio" class="col-form-label">Fecha de inicio</label>
-                            <input type="text" ngModel name="fecha_inicio" class="form-control" id="fecha_inicio"
-                                placeholder="Fecha de inicio de actividades" required />
+                            <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
+                            <input type="number" min="1900" max="2050" ngModel name="fecha_inicio" class="form-control"
+                                id="fecha_inicio" placeholder="Año de inicio de actividades" required />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_fin" class="col-form-label">Fecha de fin de actividades</label>
+                            <label for="fecha_fin" class="col-form-label">Año de fin de actividades | Actual</label>
                             <input type="text" ngModel name="fecha_fin" class="form-control" id="fecha_fin"
-                                placeholder="Fecha de fin de actividades" />
+                                placeholder="Año de fin de actividades | Actual" />
                         </div>
                         <div class="mb-3">
-                            <label for="imagen_logoEmp" class="col-form-label">Url logo Empresa</label>
-                            <input type="text" ngModel name="imagen_logoEmp" class="form-control" id="imagen_logoEmp"
-                                placeholder="Url al logo de la empresa">
+                            <label for="imagen_logoEmp" class="col-form-label">Logo de la empresa</label>
+                            <input type="url" pattern="https://.*" ngModel name="imagen_logoEmp" class="form-control" id="imagen_logoEmp"
+                                placeholder="Url del logo de la empresa | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="add-experiencia-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
@@ -95,7 +97,8 @@
     <!--Modal EditExp-->
 
     <div class="modal fade" id="editExperienciaModal" tabindex="-1" role="dialog"
-        aria-labelledby="editExperienciaModalLabel" aria-hidden="true">
+        aria-labelledby="editExperienciaModalLabel" aria-hidden="true" data-bs-backdrop="static"
+        data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -105,33 +108,35 @@
                 <div class="modal-body">
                     <form #editForm="ngForm">
                         <div class="mb-3">
-                            <label for="cargo" class="col-form-label">Cargo</label>
+                            <label for="cargo" class="col-form-label">Cargo o posición*</label>
                             <input type="text" ngModel="{{updateExperiencia?.cargo}}" name="cargo" class="form-control"
-                                id="cargo" placeholder="Cargp" aria-describedby="emailHelp">
+                                id="cargo" placeholder="Cargo | Posición" aria-describedby="emailHelp">
                         </div>
                         <input type="hidden" ngModel="{{updateExperiencia?.idExp}}" name="idExp" class="form-control"
                             id="idExp" placeholder="" />
                         <div class="mb-3">
-                            <label for="empresa" class="col-form-label">Empresa</label>
+                            <label for="empresa" class="col-form-label">Empresa o Institución*</label>
                             <input type="text" ngModel="{{updateExperiencia?.empresa}}" name="empresa"
-                                class="form-control" id="empresa" placeholder="Empresa" />
+                                class="form-control" id="empresa" placeholder="Nombre de donde realizó el trabajo" />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_inicio" class="col-form-label">Fecha de inicio</label>
-                            <input type="text" ngModel="{{updateExperiencia?.fecha_inicio}}" name="fecha_inicio"
-                                class="form-control" id="fecha_inicio" placeholder="Anio de inicio" />
+                            <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
+                            <input type="number" min="1900" max="2050" ngModel="{{updateExperiencia?.fecha_inicio}}"
+                                name="fecha_inicio" class="form-control" id="fecha_inicio"
+                                placeholder="Año de inicio de actividades" />
                         </div>
                         <div class="mb-3">
-                            <label for="fecha_fin" class="col-form-label">Fecha de fin de actividades</label>
+                            <label for="fecha_fin" class="col-form-label">Año de fin de actividades | Actual</label>
                             <input type="text" ngModel="{{updateExperiencia?.fecha_fin}}" name="fecha_fin"
-                                class="form-control" id="fecha_fin" placeholder="Anio de fin de actividades" />
+                                class="form-control" id="fecha_fin" placeholder="Año de fin de actividades | Actual" />
                         </div>
                         <div class="mb-3">
-                            <label for="imagen_logoEmp" class="col-form-label">Url logo empresa</label>
-                            <input type="text" ngModel="{{updateExperiencia?.imagen_logoEmp}}" name="imagen_logoEmp"
-                                class="form-control" id="imagen_logoEmp" placeholder="Url al logo de la empresa">
+                            <label for="imagen_logoEmp" class="col-form-label">Logo de la empresa</label>
+                            <input type="url" pattern="https://.*" ngModel="{{updateExperiencia?.imagen_logoEmp}}" name="imagen_logoEmp"
+                                class="form-control" id="imagen_logoEmp" placeholder="Url del logo de la empresa | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="edit-experiencia-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button (click)="onEditExperiencia(editForm.value)" class="btn btn-light"
@@ -143,10 +148,10 @@
         </div>
     </div>
 
-    <!--Modal delete Exp-->
+    <!--Modal deleteExp-->
 
-    <div class="modal fade" data-bs-toggle="modal" data-bs-target="#deleteModelLabel" id="deleteExperienciaModal"
-        tabindex="-1" aria-labelledby="deleteExperienciaModalLabel" aria-hidden="true">
+    <div class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" id="deleteExperienciaModal" tabindex="-1"
+        aria-labelledby="deleteExperienciaModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -154,22 +159,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Estas Seguro de que queres eliminar esta seccion {{deleteExperiencia?.cargo}}?</p>
+                    <p>¿Querés eliminar la sección {{deleteExperiencia?.cargo}}?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="button" (click)="onDeleteExperiencia(deleteExperiencia!.idExp)" class="btn btn-danger"
-                        data-dismiss="modal">Si</button>
+                        data-bs-dismiss="modal">Si</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--Nada que mostrar-->
+    <!--Campo vacio-->
 
     <div *ngIf="experiencias?.length == 0" class="col-lg-12 col-md-12 col-sl-12">
         <div class="alert alert-info" role="alert">
-            <h4 class="alert-heading">Campo vacio</h4>
+            <h4 class="alert-heading">Campo vacío</h4>
         </div>
     </div>
 </section>

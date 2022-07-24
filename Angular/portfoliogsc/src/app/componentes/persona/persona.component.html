@@ -11,10 +11,10 @@
                 <h3>{{persona.ocupacion}}</h3>
             </div>
         </div>
-        <div class="row align-items-start mx-auto my-2 border border-3 rounded-3 border-light">
+        <div class="row align-items-start mx-auto my-2 border border-3 rounded-3">
         <div class="row mx-auto p-0">
             <div class="col text-left my-3 p-0">
-                <h4 class="ms-2"><b>Contacto</b><br>Email: {{persona.email}}<br>Cel: {{persona.telefono}}</h4>
+                <h4 class="ms-2"><b>Contacto</b><br><b>Email:</b> {{persona.email}}<br><b>Tel:</b> {{persona.telefono}}</h4>
             </div>
             <div class="col-auto text-right my-3 p-0">
                 <button (click)="onOpenModal('edit', persona)" type="button" class="btn btn-light btn-lg tooltips"
@@ -36,10 +36,10 @@
 
 </section>
 
-<!--Modal EditPers-->
+<!--Modal editPers-->
 
 <div class="modal fade" id="editPersonaModal" tabindex="-1" role="dialog" aria-labelledby="editPersonaModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -49,55 +49,55 @@
             <div class="modal-body">
                 <form #editForm="ngForm">
                     <div class="mb-3">
-                        <label for="nombre" class="col-form-label">Nombre</label>
+                        <label for="nombre" class="col-form-label">Nombres*</label>
                         <input type="text" ngModel="{{updatePersona?.nombre}}" name="nombre" class="form-control"
-                            id="nombre" placeholder="Nombres" aria-describedby="emailHelp">
+                            id="nombre" placeholder="Nombres" aria-describedby="emailHelp" required>
                     </div>
                     <input type="hidden" ngModel="{{updatePersona?.id}}" name="id" class="form-control" id="id"
                         placeholder="" />
                     <div class="mb-3">
-                        <label for="apellido" class="col-form-label">Apellido</label>
+                        <label for="apellido" class="col-form-label">Apellidos*</label>
                         <input type="text" ngModel="{{updatePersona?.apellido}}" name="apellido" class="form-control"
-                            id="apellido" placeholder="Apellidos" />
+                            id="apellido" placeholder="Apellidos" required/>
                     </div>
                     <div class="mb-3">
-                        <label for="ocupacion" class="col-form-label">Ocupación</label>
+                        <label for="ocupacion" class="col-form-label">Ocupación*</label>
                         <input type="text" ngModel="{{updatePersona?.ocupacion}}" name="ocupacion" class="form-control"
-                            id="ocupacion" placeholder="Ocupación, cargo o puesto" />
+                            id="ocupacion" placeholder="Ocupación, cargo o puesto" required/>
                     </div>
 
                     <div class="mb-3">
-                        <label for="fecha_nacimiento" class="col-form-label">Fecha de Nacimiento</label>
-                        <input type="text" ngModel="{{updatePersona?.fecha_nacimiento}}" name="fecha_nacimiento"
-                            class="form-control" id="fecha_nacimiento" placeholder="Fecha de nacimiento dd/mm/aaaa">
+                        <label for="fecha_nacimiento" class="col-form-label">Fecha de Nacimiento*</label>
+                        <input type="date" ngModel="{{updatePersona?.fecha_nacimiento}}" name="fecha_nacimiento"
+                            class="form-control" id="fecha_nacimiento" placeholder="Fecha de nacimiento" required>
                     </div>
                     <div class="mb-3">
-                        <label for="telefono" class="col-form-label">Teléfono</label>
-                        <input type="text" ngModel="{{updatePersona?.telefono}}" name="telefono" class="form-control"
-                            id="telefono" placeholder="Teléfono de contacto">
+                        <label for="telefono" class="col-form-label">Teléfono*</label>
+                        <input type="tel" ngModel="{{updatePersona?.telefono}}" name="telefono" class="form-control"
+                            id="telefono" placeholder="Teléfono de contacto" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="col-form-label">E-mail</label>
-                        <input type="text" ngModel="{{updatePersona?.email}}" name="email" class="form-control"
-                            id="email" placeholder="Correo electrónico" />
+                        <label for="email" class="col-form-label">E-mail*</label>
+                        <input type="email" ngModel="{{updatePersona?.email}}" name="email" class="form-control"
+                            id="email" placeholder="Correo electrónico" required/>
                     </div>
                     <div class="mb-3">
-                        <label for="foto_perfil" class="col-form-label">Foto de Perfil</label>
-                        <input type="text" ngModel="{{updatePersona?.foto_perfil}}" name="foto_perfil"
-                            class="form-control" id="foto_perfil" placeholder="Url de la foto de perfil">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="foto_portada" class="col-form-label">Portada</label>
-                        <input type="text" ngModel="{{updatePersona?.foto_portada}}" name="foto_portada"
-                            class="form-control" id="foto_portada" placeholder="Url de la imagen de portada" />
+                        <label for="foto_perfil" class="col-form-label">Foto de Perfil*</label>
+                        <input type="url" pattern="https://.*" ngModel="{{updatePersona?.foto_perfil}}" name="foto_perfil"
+                            class="form-control" id="foto_perfil" placeholder="Url de la foto de perfil | https://ejemplo.com" required>
                     </div>
                     <div class="mb-3">
-                        <label for="sobre_mi" class="col-form-label">Acerca de mí</label>
+                        <label for="foto_portada" class="col-form-label">Portada*</label>
+                        <input type="url" pattern="https://.*" ngModel="{{updatePersona?.foto_portada}}" name="foto_portada"
+                            class="form-control" id="foto_portada" placeholder="Url de la imagen de portada | https://ejemplo.com" required/>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sobre_mi" class="col-form-label">Acerca de mí*</label>
                         <textarea type="text" ngModel="{{updatePersona?.sobre_mi}}" name="sobre_mi" class="form-control"
                             id="sobre_mi" placeholder="Descripción personal y profecional"></textarea>
                     </div>
                     <div class="modal-footer">
+                        <p class="col req">* Requerido</p>
                         <button type="button" id="edit-persona-form" class="btn btn-secondary"
                             data-bs-dismiss="modal">Cerrar</button>
                         <button (click)="onEditPersona(editForm.value)" class="btn btn-light" data-bs-dismiss="modal"

@@ -1,11 +1,11 @@
 <section class="main-container mx-5 mb-5">
 
-    <div class="row mb-4">
-        <div class="col-auto text-left my-auto">
-            <h2 class="my-auto p-3 bg-opacity-50 border border-3 rounded-3">Hard & Soft Skills</h2>
+    <div class="row mb-4 border border-3 rounded-3">
+        <div class="col text-left my-auto">
+            <h2 class="my-auto p-3 bg-opacity-50 ">Hard & Soft Skills</h2>
         </div>
-        <div class="col text-right my-2 my-sm-auto">
-            <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#AddSkillModal"
+        <div class="col-auto text-right p-0 m-auto pe-2">
+            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#AddSkillModal"
                 (click)="onOpenModal('add')">Añadir
                 <span class="sr-only">(current)</span>
             </button>
@@ -37,7 +37,7 @@
     <!--Modal addSkill-->
 
     <div class="modal fade" id="AddSkillModal" tabindex="-1" role="dialog" aria-labelledby="addSkillModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -47,21 +47,22 @@
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddSkill(addForm)">
                         <div class="mb-3">
-                            <label for="nombreSkill" class="col-form-label">Skill</label>
+                            <label for="nombreSkill" class="col-form-label">Skill*</label>
                             <input type="text" ngModel name="nombreSkill" class="form-control" id="nombreSkill"
-                                placeholder="Nombre de la Skill" required>
+                                placeholder="Nombre de la skill" required>
                         </div>
                         <div class="mb-3">
-                            <label for="porcentaje" class="col-form-label">Nivel de dominio</label>
-                            <input type="text" ngModel name="porcentaje" class="form-control" id="porcentaje"
+                            <label for="porcentaje" class="col-form-label">Nivel de dominio*</label>
+                            <input type="number" min="0" max="100" ngModel name="porcentaje" class="form-control" id="porcentaje"
                                 placeholder="Porcentaje" required />
                         </div>
                         <div class="mb-3">
                             <label for="imagenSkill" class="col-form-label">Imagen</label>
-                            <input type="text" ngModel name="imagenSkill" class="form-control" id="imagenSkill"
-                                placeholder="Url de una imagen representativa" />
+                            <input type="url" pattern="https://.*" ngModel name="imagenSkill" class="form-control" id="imagenSkill"
+                                placeholder="Url de una imagen representativa | https://ejemplo.com" />
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="add-skill-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
@@ -75,7 +76,7 @@
     <!--Modal editSkill-->
 
     <div class="modal fade" id="editSkillModal" tabindex="-1" role="dialog" aria-labelledby="editSkillModalLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -85,24 +86,25 @@
                 <div class="modal-body">
                     <form #editForm="ngForm">
                         <div class="mb-3">
-                            <label for="nombreSkill" class="col-form-label">Skill</label>
+                            <label for="nombreSkill" class="col-form-label">Skill*</label>
                             <input type="text" ngModel="{{updateSkill?.nombreSkill}}" name="nombreSkill"
-                                class="form-control" id="nombreSkill" placeholder="Nombre de la Skill"
+                                class="form-control" id="nombreSkill" placeholder="Nombre de la skill"
                                 aria-describedby="emailHelp">
                         </div>
                         <input type="hidden" ngModel="{{updateSkill?.idSkill}}" name="idSkill" class="form-control"
-                            id="idSkill" placeholder="" />
+                            id="idSkill" placeholder="" required>
                         <div class="mb-3">
-                            <label for="porcentaje" class="col-form-label">Nivel de dominio</label>
-                            <input type="text" ngModel="{{updateSkill?.porcentaje}}" name="porcentaje"
-                                class="form-control" id="porcentaje" placeholder="Porcentaje" />
+                            <label for="porcentaje" class="col-form-label">Nivel de dominio*</label>
+                            <input type="number" min="0" max="100" ngModel="{{updateSkill?.porcentaje}}" name="porcentaje"
+                                class="form-control" id="porcentaje" placeholder="Porcentaje" required />
                         </div>
                         <div class="mb-3">
                             <label for="imagenSkill" class="col-form-label">Imagen</label>
                             <input type="text" ngModel="{{updateSkill?.imagenSkill}}" name="imagenSkill"
-                                class="form-control" id="imagenSkill" placeholder="Url de una imagen representativa" />
+                                class="form-control" id="imagenSkill" placeholder="Url de una imagen representativa | https://ejemplo.com" />
                         </div>
                         <div class="modal-footer">
+                            <p class="col">* Requerido</p>
                             <button type="button" id="edit-skill-form" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Cerrar</button>
                             <button (click)="onEditSkill(editForm.value)" class="btn btn-light"
@@ -116,8 +118,8 @@
 
     <!--Modal deleteSkill-->
 
-    <div class="modal fade" data-bs-toggle="modal" data-bs-target="#deleteModelLabel" id="deleteSkillModal"
-        tabindex="-1" aria-labelledby="deleteSkillModalLabel" aria-hidden="true">
+    <div class="modal fade" id="deleteSkillModal"
+        tabindex="-1" aria-labelledby="deleteSkillModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,7 +132,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     <button type="button" (click)="onDeleteSkill(deleteSkill!.idSkill)" class="btn btn-danger"
-                        data-dismiss="modal">Si</button>
+                        data-bs-dismiss="modal">Si</button>
                 </div>
             </div>
         </div>

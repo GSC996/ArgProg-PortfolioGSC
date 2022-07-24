@@ -6,7 +6,7 @@
       <img src="https://argentinaprograma.inti.gob.ar/pluginfile.php/1/theme_moove/logo/1652360229/APLogo-20-20.png"
         class="ps-5 logoAP ">
       <b class="yoProgramo">#YoProgramo</b>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+      <button class="navbar-toggler me-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
         aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -15,24 +15,20 @@
         <span class="navbar-nav me-auto mb-2 mb-lg-0"></span>
 
         <span class="d-flex">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 pe-5">
-            <li class="nav-item" style="margin-right: 20px;">
+          <ul class="navbar-nav mb-2 mb-lg-0 pe-5">
+            <li class="nav-item text-center">
               <a title="Linkedin" target="in_blank" href="https://www.linkedin.com/in/gscoutinho96/"><img
-                  class="linkedin pe-2" src="https://cdn-icons-png.flaticon.com/512/174/174857.png"
-                  alt="Linkedin" /></a>
+                  class="linkedin" src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="Linkedin" /></a>
             </li>
-            <li class="nav-item">
-              <a title="Instagram" target="in_blank" href="https://github.com/GSC996"><img class="github pe-4"
+            <li class="nav-item text-center">
+              <a title="Instagram" target="in_blank" href="https://github.com/GSC996"><img class="github"
                   src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub" /></a>
             </li>
             <li class="nav-item">
-              <a href="#" id="login" onClick="login();" class="btn-right"><svg xmlns="http://www.w3.org/2000/svg"
-                  width="40" height="40" style="color: #333;" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-in">
-                  <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-                  <polyline points="10 17 15 12 10 7"></polyline>
-                  <line x1="15" y1="12" x2="3" y2="12"></line>
-                </svg></a>
+              <button type="button" class="btn btn-secondary btn-lg" (click)="login()"
+                *ngIf="!isLogged">Ingresar</button>
+              <button type="button" class="btn btn-secondary btn-lg" (click)="onLogOut()" *ngIf="isLogged">Cerra
+                Sesión</button>
             </li>
           </ul>
         </span>
@@ -40,29 +36,3 @@
     </div>
   </nav>
 </header>
-
-<!-- Modal Login
-  <div class="modal fade" id="loginPpl" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Datos Personales</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label for="exampleFormControlInput1" class="form-label">Nombre </label>
-            <input type="name" class="form-control" id="nombreLogin" placeholder="name@example.com">
-          </div>
-          <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-light" onclick="chequeoLogin();">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>-->
