@@ -9,102 +9,229 @@
             <div class="col-auto">
                 <h1>{{persona.nombre}} {{persona.apellido}}</h1>
                 <h3>{{persona.ocupacion}}</h3>
+                <h3>{{persona.locacion}}</h3>
+                <h3>{{persona.edad}} años</h3>
             </div>
         </div>
         <div class="row align-items-start mx-auto my-2 border border-3 rounded-3">
-        <div class="row mx-auto p-0">
-            <div class="col text-left my-3 p-0">
-                <h4 class="ms-2"><b>Contacto</b><br><b>Email:</b> {{persona.email}}<br><b>Tel:</b> {{persona.telefono}}</h4>
+            <div class="row mx-auto p-0">
+                <div class="col-auto red mt-2"></div>
+                <div class="col-auto text-left my-3 p-0">
+                    <h4 class="ms-2"><b>Contacto</b><br><b>Email:</b> {{persona.email}}<br><b>Tel:</b>
+                        {{persona.telefono}}</h4>
+                </div>
+                <div class="col text-right my-3 p-0">
+                    <ng-template [ngIf]="isAdmin"><button (click)="onOpenModal('edit', persona)" type="button"
+                            class="btn btn-info tooltips" style="height: 45px; width: 45px;" data-bs-toggle="modal"
+                            data-bs-target="#editPersonaModal" data-placement="top" data-toggle="tooltip"
+                            data-original-title="Edit"><i class="fa fa-pencil"></i>
+                        </button></ng-template>
+                </div>
             </div>
-            <div class="col-auto text-right my-3 p-0">
-                <button (click)="onOpenModal('edit', persona)" type="button" class="btn btn-light btn-lg tooltips"
-                    data-bs-toggle="modal" data-bs-target="#editPersonaModal" data-placement="top" data-toggle="tooltip"
-                    data-original-title="Edit"><i class="fa fa-pencil"></i>
-                </button>
+
+            <div class="row mx-auto p-0">
+                <div class="col-12">
+                    <h2>Acerca de mí</h2>
+                </div>
+                <div class="col-12">
+                    <p>{{persona.sobre_mi}}</p>
+                </div>
             </div>
         </div>
-
-        <div class="row mx-auto p-0">
-            <div class="col-12">
-                <h2>Acerca de mí</h2>
-            </div>
-            <div class="col-12">
-                <p>{{persona.sobre_mi}}</p>
-            </div>
-        </div></div>
     </div>
 
+    <!--Modal editPers-->
+
+    <div class="modal fade" id="editPersonaModal" tabindex="-1" role="dialog" aria-labelledby="editPersonaModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPersonaModalLabel">Editar {{updatePersona?.nombre}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="formPersona">
+
+                        <input type="hidden" ngModel="{{updatePersona?.id}}" formControlName="id" name="id"
+                            class="form-control" id="id" />
+
+                        <div class="mb-3">
+                            <label for="nombre" class="col-form-label">Nombre</label>
+                            <input type="text" ngModel="{{updatePersona?.nombre}}" formControlName="nombre"
+                                name="nombre" class="form-control" id="nombre" placeholder="Nombres"
+                                aria-describedby="emailHelp" required>
+                            <div *ngIf="Nombre?.errors && Nombre?.touched">
+                                <p class="text-danger" *ngIf="Nombre?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="Nombre?.hasError('maxlength')">
+                                    Debe tener como máximo 45 caracteres
+                                </p>
+                                <p class="text-danger" *ngIf="Nombre?.hasError('pattern')">
+                                    Debe tener solo letras
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="apellido" class="col-form-label">Apellido</label>
+                            <input type="text" ngModel="{{updatePersona?.apellido}}" formControlName="apellido"
+                                name="apellido" class="form-control" id="apellido" placeholder="Apellidos"
+                                aria-describedby="emailHelp" required>
+                            <div *ngIf="Apellido?.errors && Apellido?.touched">
+                                <p class="text-danger" *ngIf="Apellido?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="Apellido?.hasError('maxlength')">
+                                    Debe tener como máximo 45 caracteres
+                                </p>
+                                <p class="text-danger" *ngIf="Apellido?.hasError('pattern')">
+                                    Debe tener solo letras
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ocupacion" class="col-form-label">Ocupación</label>
+                            <input type="text" ngModel="{{updatePersona?.ocupacion}}" formControlName="ocupacion"
+                                name="ocupacion" class="form-control" id="ocupacion"
+                                placeholder="Ocupación, cargo o puesto" aria-describedby="emailHelp" required>
+                            <div *ngIf="Ocupacion?.errors && Ocupacion?.touched">
+                                <p class="text-danger" *ngIf="Ocupacion?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="Ocupacion?.hasError('maxlength')">
+                                    Debe tener como máximo 45 caracteres
+                                </p>
+                                <p class="text-danger" *ngIf="Ocupacion?.hasError('pattern')">
+                                    Debe tener solo letras
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="locacion" class="col-form-label">Locación</label>
+                            <input type="text" ngModel="{{updatePersona?.locacion}}" formControlName="locacion"
+                                name="locacion" class="form-control" id="locacion"
+                                placeholder="Ciudad y provincia de residencia" required>
+                            <div *ngIf="Locacion?.errors && Locacion?.touched">
+                                <p class="text-danger" *ngIf="Locacion?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="Locacion?.hasError('maxlength')">
+                                    Debe tener como máximo 100 caracteres
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="fecha_nacimiento" class="col-form-label">Fecha de nacimiento</label>
+                            <input type="date" ngModel="{{updatePersona?.fecha_nacimiento}}"
+                                max="{{maxFecha | date:'yyyy-MM-dd'}}" formControlName="fecha_nacimiento"
+                                name="fecha_nacimiento" class="form-control" id="fecha_nacimiento"
+                                placeholder="Fecha de nacimiento" aria-describedby="emailHelp" required>
+                            <div *ngIf="FechaN?.errors">
+                                <p class="text-danger" *ngIf="FechaN?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="telefono" class="col-form-label">Teléfono</label>
+                            <input type="text" ngModel="{{updatePersona?.telefono}}" formControlName="telefono"
+                                name="telefono" class="form-control" id="telefono" placeholder="Teléfono de contacto"
+                                aria-describedby="emailHelp" required>
+                            <div *ngIf="Telefono?.errors && Telefono?.touched">
+                                <p class="text-danger" *ngIf="Telefono?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="Telefono?.hasError('maxlength')">
+                                    Debe tener como máximo 20 caracteres
+                                </p>
+                                <p class="text-danger" *ngIf="Telefono?.hasError('pattern')">
+                                    Debe tener solo números
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="col-form-label">E-mail</label>
+                            <input type="email" ngModel="{{updatePersona?.email}}" formControlName="email" name="email"
+                                class="form-control" id="email" placeholder="Correo electrónico"
+                                aria-describedby="emailHelp" required>
+                            <div *ngIf="Email?.errors && Email?.touched">
+                                <p class="text-danger" *ngIf="Email?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="Email?.hasError('maxlength')">
+                                    Debe tener como máximo 60 caracteres
+                                </p>
+                                <p class="text-danger" *ngIf="Email?.hasError('email')">
+                                    Formato de email no válido
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="foto_perfil" class="col-form-label">Foto de perfil</label>
+                            <input type="text" ngModel="{{updatePersona?.foto_perfil}}" formControlName="foto_perfil"
+                                name="foto_perfil" class="form-control" id="foto_perfil"
+                                placeholder="Url de la foto de perfil | https://ejemplo.com"
+                                aria-describedby="emailHelp" required>
+                            <div *ngIf="FotoPerf?.errors && FotoPerf?.touched">
+                                <p class="text-danger" *ngIf="FotoPerf?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="FotoPerf?.hasError('maxlength')">
+                                    Debe tener como máximo 255 caracteres
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="foto_portada" class="col-form-label">Imagen de portada</label>
+                            <input type="text" ngModel="{{updatePersona?.foto_portada}}" formControlName="foto_portada"
+                                name="foto_portada" class="form-control" id="foto_portada"
+                                placeholder="Url de la imagen de portada | https://ejemplo.com"
+                                aria-describedby="emailHelp" required>
+                            <div *ngIf="FotoPort?.errors && FotoPort?.touched">
+                                <p class="text-danger" *ngIf="FotoPort?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="FotoPort?.hasError('maxlength')">
+                                    Debe tener como máximo 255 caracteres
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="sobre_mi" class="col-form-label">Acerca de mí</label>
+                            <textarea type="text" ngModel="{{updatePersona?.sobre_mi}}" formControlName="sobre_mi"
+                                name="sobre_mi" class="form-control" id="sobre_mi"
+                                placeholder="Descripción personal y profecional" aria-describedby="emailHelp"
+                                required></textarea>
+                            <div *ngIf="SobreMi?.errors && SobreMi?.touched">
+                                <p class="text-danger" *ngIf="SobreMi?.hasError('required')">
+                                    Campo requerido
+                                </p>
+                                <p class="text-danger" *ngIf="SobreMi?.hasError('maxlength')">
+                                    Debe tener como máximo 255 caracteres
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <p *ngIf="!submit()" class="col req">{{validado}}</p>
+                            <button type="button" id="edit-persona-form" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Cerrar</button>
+                            <button [disabled]="formPersona.invalid" (click)="onEditPersona(formPersona.value)"
+                                class="btn btn-info" data-bs-dismiss="modal" type="submit">Guardar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
-
-<!--Modal editPers-->
-
-<div class="modal fade" id="editPersonaModal" tabindex="-1" role="dialog" aria-labelledby="editPersonaModalLabel"
-    aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editPersonaModalLabel">Editar {{updatePersona?.nombre}}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form #editForm="ngForm">
-                    <div class="mb-3">
-                        <label for="nombre" class="col-form-label">Nombres*</label>
-                        <input type="text" ngModel="{{updatePersona?.nombre}}" name="nombre" class="form-control"
-                            id="nombre" placeholder="Nombres" aria-describedby="emailHelp" required>
-                    </div>
-                    <input type="hidden" ngModel="{{updatePersona?.id}}" name="id" class="form-control" id="id"
-                        placeholder="" />
-                    <div class="mb-3">
-                        <label for="apellido" class="col-form-label">Apellidos*</label>
-                        <input type="text" ngModel="{{updatePersona?.apellido}}" name="apellido" class="form-control"
-                            id="apellido" placeholder="Apellidos" required/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="ocupacion" class="col-form-label">Ocupación*</label>
-                        <input type="text" ngModel="{{updatePersona?.ocupacion}}" name="ocupacion" class="form-control"
-                            id="ocupacion" placeholder="Ocupación, cargo o puesto" required/>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="fecha_nacimiento" class="col-form-label">Fecha de Nacimiento*</label>
-                        <input type="date" ngModel="{{updatePersona?.fecha_nacimiento}}" name="fecha_nacimiento"
-                            class="form-control" id="fecha_nacimiento" placeholder="Fecha de nacimiento" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="telefono" class="col-form-label">Teléfono*</label>
-                        <input type="tel" ngModel="{{updatePersona?.telefono}}" name="telefono" class="form-control"
-                            id="telefono" placeholder="Teléfono de contacto" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="col-form-label">E-mail*</label>
-                        <input type="email" ngModel="{{updatePersona?.email}}" name="email" class="form-control"
-                            id="email" placeholder="Correo electrónico" required/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="foto_perfil" class="col-form-label">Foto de Perfil*</label>
-                        <input type="url" pattern="https://.*" ngModel="{{updatePersona?.foto_perfil}}" name="foto_perfil"
-                            class="form-control" id="foto_perfil" placeholder="Url de la foto de perfil | https://ejemplo.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="foto_portada" class="col-form-label">Portada*</label>
-                        <input type="url" pattern="https://.*" ngModel="{{updatePersona?.foto_portada}}" name="foto_portada"
-                            class="form-control" id="foto_portada" placeholder="Url de la imagen de portada | https://ejemplo.com" required/>
-                    </div>
-                    <div class="mb-3">
-                        <label for="sobre_mi" class="col-form-label">Acerca de mí*</label>
-                        <textarea type="text" ngModel="{{updatePersona?.sobre_mi}}" name="sobre_mi" class="form-control"
-                            id="sobre_mi" placeholder="Descripción personal y profecional"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <p class="col req">* Requerido</p>
-                        <button type="button" id="edit-persona-form" class="btn btn-secondary"
-                            data-bs-dismiss="modal">Cerrar</button>
-                        <button (click)="onEditPersona(editForm.value)" class="btn btn-light" data-bs-dismiss="modal"
-                            type="submit">Guardar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>

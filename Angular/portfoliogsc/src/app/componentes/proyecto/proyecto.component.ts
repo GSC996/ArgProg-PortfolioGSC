@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Proyecto } from 'src/app/models/proyecto';
 import { ProyectoService } from 'src/app/servicios/proyecto.service';
+import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-proyecto',
@@ -14,11 +15,17 @@ export class ProyectoComponent implements OnInit {
   public proyectos: Proyecto[] = [];
   public updateProyecto: Proyecto | undefined;
   public deleteProyecto: Proyecto | undefined;
+  isAdmin = false;
 
-  constructor(private proyectoService: ProyectoService) { }
+  constructor(private proyectoService: ProyectoService, private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getProyectos();
+    if (this.tokenService.canConfig()) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   public getProyectos(): void {
@@ -30,6 +37,7 @@ export class ProyectoComponent implements OnInit {
       }
     })
   }
+
   public onOpenModal(mode: string, proyecto?: Proyecto): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -48,6 +56,7 @@ export class ProyectoComponent implements OnInit {
     container?.appendChild(button);
     button.click();
   }
+
   public onAddProyecto(addForm: NgForm): void {
     document.getElementById('add-proyecto-form')?.click();
     this.proyectoService.addProyecto(addForm.value).subscribe(
@@ -82,7 +91,6 @@ export class ProyectoComponent implements OnInit {
   }
 
   public onDeleteProyecto(idProy: number): void {
-
     this.proyectoService.deleteProyecto(idProy).subscribe(
       {
         next: (response: void) => {

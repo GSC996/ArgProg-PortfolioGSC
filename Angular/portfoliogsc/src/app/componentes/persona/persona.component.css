@@ -8,8 +8,17 @@
     background-position: center center;
 }
 
-.row.mx-auto{
+.row.mx-auto {
     width: 97%;
+}
+
+.red {
+    background-image: url(\src\assets\internet.png);
+    height: 100px;
+    width: 5em;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
 }
 
 .imgCV {
@@ -42,7 +51,7 @@ h3 {
     text-shadow: 1px 1px 3px #000;
 }
 
-.req{
+.req {
     color: red;
 }
 
@@ -111,7 +120,7 @@ h3 {
         height: 100%;
         object-fit: cover;
     }
-s
+
     h1 {
         color: #fff;
         position: relative;

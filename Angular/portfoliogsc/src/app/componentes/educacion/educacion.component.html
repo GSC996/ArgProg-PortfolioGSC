@@ -4,11 +4,11 @@
         <div class="col text-left my-auto">
             <h2 class="my-auto p-3 bg-opacity-50 ">Historial académico</h2>
         </div>
-        <div class="col-auto text-right p-0 m-auto pe-2">
-            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal"
-                data-bs-target="#AddEducacionModal" (click)="onOpenModal('add')">Añadir
-                <span class="sr-only">(current)</span>
-            </button>
+        <div class="col-auto text-right p-0 m-auto pe-3">
+            <ng-template [ngIf]="isAdmin"><button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#AddEducacionModal" (click)="onOpenModal('add')">Añadir
+                    <span class="sr-only">(current)</span>
+                </button></ng-template>
         </div>
     </div>
 
@@ -32,16 +32,18 @@
         <div class="col col-lg-2 my-auto">
             <h5 id="contenido">{{educacion.fecha_fin}}</h5>
         </div>
-        <div class="col-12 col-sm-auto text-right mb-2 my-lg-auto">
-            <button (click)="onOpenModal('edit', educacion)" type="button" class="btn btn-light tooltips mr-1"
-                data-bs-toggle="modal" data-bs-target="#editEducacionModal" data-placement="top" data-toggle="tooltip"
-                data-original-title="Edit"><i class="fa fa-pencil"></i>
-            </button>
-            <button (click)="onOpenModal('delete', educacion)" type="button" class="btn btn-secondary tooltips"
-                data-bs-toggle="modal" data-bs-target="#deleteEducacionModal" data-placement="top" data-toggle="tooltip"
-                data-original-title="Delete"><i class="fa fa-times"></i>
-            </button>
-        </div>
+        <ng-template [ngIf]="isAdmin">
+            <div class="col-12 col-sm-auto text-right mb-2 my-lg-auto">
+                <button (click)="onOpenModal('edit', educacion)" type="button" class="btn btn-info tooltips mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editEducacionModal" data-placement="top"
+                    data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i>
+                </button>
+                <button (click)="onOpenModal('delete', educacion)" type="button" class="btn btn-secondary tooltips"
+                    data-bs-toggle="modal" data-bs-target="#deleteEducacionModal" data-placement="top"
+                    data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i>
+                </button>
+            </div>
+        </ng-template>
     </div>
 
     <!--Modal addEdu-->
@@ -56,20 +58,22 @@
                 </div>
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddEducacion(addForm)">
+
                         <div class="mb-3">
                             <label for="titulo" class="col-form-label">Título*</label>
-                            <input type="text" ngModel name="titulo" class="form-control" id="titulo"
+                            <input type="text" ngModel name="titulo" maxlength="50" class="form-control" id="titulo"
                                 placeholder="Título o nombre de la carrera" required>
                         </div>
                         <div class="mb-3">
                             <label for="institucion" class="col-form-label">Institución*</label>
-                            <input type="text" ngModel name="institucion" class="form-control" id="institucion"
-                                placeholder="Nombre de la institución" required />
+                            <input type="text" ngModel name="institucion" maxlength="100" class="form-control"
+                                id="institucion" placeholder="Nombre de la institución" required />
                         </div>
                         <div class="mb-3">
                             <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
-                            <input type="number" min="1900" max="2050" ngModel name="fecha_inicio" class="form-control"
+                            <input type="number" min="1900" max="2022" ngModel name="fecha_inicio" class="form-control"
                                 id="fecha_inicio" placeholder="Año en que comenzó la carrera" required />
+
                         </div>
                         <div class="mb-3">
                             <label for="fecha_fin" class="col-form-label">Año de egreso | Cursando</label>
@@ -78,14 +82,20 @@
                         </div>
                         <div class="mb-3">
                             <label for="imagen_logoInst" class="col-form-label">Logo de la institución</label>
-                            <input type="url" pattern="https://.*" ngModel name="imagen_logoInst" class="form-control" id="imagen_logoInst"
-                                placeholder="Url del logo de la institución | https://ejemplo.com">
+                            <input type="url" pattern="https://.*" ngModel name="imagen_logoInst" class="form-control"
+                                id="imagen_logoInst" placeholder="Url del logo de la institución | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="add-educacion-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
+
+                            <div *ngIf="addForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-educacion-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="addForm.invalid" type="submit"
+                                    class="col-auto mx-2 btn btn-info">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -107,21 +117,23 @@
                     <form #editForm="ngForm">
                         <div class="mb-3">
                             <label for="titulo" class="col-form-label">Título*</label>
-                            <input type="text" ngModel="{{updateEducacion?.titulo}}" name="titulo" class="form-control"
-                                id="titulo" placeholder="Título o nombre de la carrera" aria-describedby="emailHelp">
+                            <input type="text" ngModel="{{updateEducacion?.titulo}}" maxlength="50" name="titulo"
+                                class="form-control" id="titulo" placeholder="Título o nombre de la carrera"
+                                aria-describedby="emailHelp">
                         </div>
                         <input type="hidden" ngModel="{{updateEducacion?.idEdu}}" name="idEdu" class="form-control"
                             id="idEdu" placeholder="" />
                         <div class="mb-3">
                             <label for="institucion" class="col-form-label">Institución*</label>
-                            <input type="text" ngModel="{{updateEducacion?.institucion}}" name="institucion"
-                                class="form-control" id="institucion" placeholder="Nombre de la institución" />
+                            <input type="text" ngModel="{{updateEducacion?.institucion}}" maxlength="100"
+                                name="institucion" class="form-control" id="institucion"
+                                placeholder="Nombre de la institución" />
                         </div>
                         <div class="mb-3">
                             <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
                             <input type="number" min="1900" max="2050" ngModel="{{updateEducacion?.fecha_inicio}}"
                                 name="fecha_inicio" class="form-control" id="fecha_inicio"
-                                placeholder="Año en que comenzó la carrera" />
+                                placeholder="Año en que comenzó la carrera" required>
                         </div>
                         <div class="mb-3">
                             <label for="fecha_fin" class="col-form-label">Año de egreso | Cursando</label>
@@ -131,15 +143,22 @@
                         </div>
                         <div class="mb-3">
                             <label for="imagen_logoInst" class="col-form-label">Logo de la institución</label>
-                            <input type="url" pattern="https://.*" ngModel="{{updateEducacion?.imagen_logoInst}}" name="imagen_logoInst"
-                                class="form-control" id="imagen_logoInst" placeholder="Url del logo de la institución | https://ejemplo.com">
+                            <input type="url" pattern="https://.*" ngModel="{{updateEducacion?.imagen_logoInst}}"
+                                name="imagen_logoInst" class="form-control" id="imagen_logoInst"
+                                placeholder="Url del logo de la institución | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="edit-educacion-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button (click)="onEditEducacion(editForm.value)" class="btn btn-light"
-                                data-bs-dismiss="modal" type="submit">Guardar</button>
+
+                            <div *ngIf="editForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-educacion-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="editForm.invalid" type="submit"
+                                    (click)="onEditEducacion(editForm.value)" class="col-auto mx-2 btn btn-info"
+                                    data-bs-dismiss="modal">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>

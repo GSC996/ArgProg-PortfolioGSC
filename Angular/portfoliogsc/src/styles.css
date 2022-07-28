@@ -3,7 +3,7 @@
     font-family: monospace;
 }
 
-button.btn-light {
+button.btn-info {
     background-color: skyblue;
     border-color: skyblue;
 }
@@ -11,4 +11,16 @@ button.btn-light {
 button.btn-secondary {
     background-color: lightslategray;
     border-color: lightslategray;
+}
+
+button.btn-info.tooltips {
+    padding: 0px;
+    width: 38px;
+    height: 38px;
+}
+
+button.btn-secondary.tooltips {
+    padding: 0px;
+    width: 38px;
+    height: 38px;
 }

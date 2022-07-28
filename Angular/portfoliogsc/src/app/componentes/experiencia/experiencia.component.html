@@ -4,11 +4,11 @@
         <div class="col text-left my-auto">
             <h2 class="my-auto p-3 bg-opacity-50">Experiencia Laboral</h2>
         </div>
-        <div class="col-auto text-right p-0 m-auto pe-2">
-            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal"
-                data-bs-target="#AddExperienciaModal" (click)="onOpenModal('add')">Añadir
-                <span class="sr-only">(current)</span>
-            </button>
+        <div class="col-auto text-right p-0 m-auto pe-3">
+            <ng-template [ngIf]="isAdmin"><button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#AddExperienciaModal" (click)="onOpenModal('add')">Añadir
+                    <span class="sr-only">(current)</span>
+                </button></ng-template>
         </div>
     </div>
 
@@ -32,16 +32,18 @@
         <div class="col col-lg-2 my-auto">
             <h5 id="contenido">{{experiencia.fecha_fin}}</h5>
         </div>
-        <div class="col-12 col-sm-auto text-right mb-2 my-lg-auto">
-            <button (click)="onOpenModal('edit', experiencia)" type="button" class="btn btn-light tooltips mr-1"
-                data-bs-toggle="modal" data-bs-target="#editExperienciaModal" data-placement="top" data-toggle="tooltip"
-                data-original-title="Edit"><i class="fa fa-pencil"></i>
-            </button>
-            <button (click)="onOpenModal('delete', experiencia)" type="button" class="btn btn-secondary tooltips"
-                data-bs-toggle="modal" data-bs-target="#deleteExperienciaModal" data-placement="top"
-                data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i>
-            </button>
-        </div>
+        <ng-template [ngIf]="isAdmin">
+            <div class="col-12 col-sm-auto text-right mb-2 my-lg-auto">
+                <button (click)="onOpenModal('edit', experiencia)" type="button" class="btn btn-info tooltips mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editExperienciaModal" data-placement="top"
+                    data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i>
+                </button>
+                <button (click)="onOpenModal('delete', experiencia)" type="button" class="btn btn-secondary tooltips"
+                    data-bs-toggle="modal" data-bs-target="#deleteExperienciaModal" data-placement="top"
+                    data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i>
+                </button>
+            </div>
+        </ng-template>
     </div>
 
     <!--Modal addExp-->
@@ -59,12 +61,12 @@
                     <form #addForm="ngForm" (ngSubmit)="onAddExperiencia(addForm)">
                         <div class="mb-3">
                             <label for="cargo" class="col-form-label">Cargo o posición*</label>
-                            <input type="text" ngModel name="cargo" class="form-control" id="cargo"
+                            <input type="text" ngModel name="cargo" maxlength="50" class="form-control" id="cargo"
                                 placeholder="Cargo | Posición" required>
                         </div>
                         <div class="mb-3">
                             <label for="empresa" class="col-form-label">Empresa o institución*</label>
-                            <input type="text" ngModel name="empresa" class="form-control" id="empresa"
+                            <input type="text" ngModel name="empresa" maxlength="100" class="form-control" id="empresa"
                                 placeholder="Nombre de donde realizó el trabajo" required />
                         </div>
                         <div class="mb-3">
@@ -79,14 +81,19 @@
                         </div>
                         <div class="mb-3">
                             <label for="imagen_logoEmp" class="col-form-label">Logo de la empresa</label>
-                            <input type="url" pattern="https://.*" ngModel name="imagen_logoEmp" class="form-control" id="imagen_logoEmp"
-                                placeholder="Url del logo de la empresa | https://ejemplo.com">
+                            <input type="url" pattern="https://.*" ngModel name="imagen_logoEmp" class="form-control"
+                                id="imagen_logoEmp" placeholder="Url del logo de la empresa | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="add-experiencia-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
+                            <div *ngIf="addForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-experiencia-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="addForm.invalid" type="submit"
+                                    class="col-auto mx-2 btn btn-info">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -109,21 +116,23 @@
                     <form #editForm="ngForm">
                         <div class="mb-3">
                             <label for="cargo" class="col-form-label">Cargo o posición*</label>
-                            <input type="text" ngModel="{{updateExperiencia?.cargo}}" name="cargo" class="form-control"
-                                id="cargo" placeholder="Cargo | Posición" aria-describedby="emailHelp">
+                            <input type="text" ngModel="{{updateExperiencia?.cargo}}" maxlength="50" name="cargo"
+                                class="form-control" id="cargo" placeholder="Cargo | Posición"
+                                aria-describedby="emailHelp" required>
                         </div>
                         <input type="hidden" ngModel="{{updateExperiencia?.idExp}}" name="idExp" class="form-control"
                             id="idExp" placeholder="" />
                         <div class="mb-3">
                             <label for="empresa" class="col-form-label">Empresa o Institución*</label>
-                            <input type="text" ngModel="{{updateExperiencia?.empresa}}" name="empresa"
-                                class="form-control" id="empresa" placeholder="Nombre de donde realizó el trabajo" />
+                            <input type="text" ngModel="{{updateExperiencia?.empresa}}" maxlength="100" name="empresa"
+                                class="form-control" id="empresa" placeholder="Nombre de donde realizó el trabajo"
+                                required />
                         </div>
                         <div class="mb-3">
                             <label for="fecha_inicio" class="col-form-label">Año de inicio*</label>
                             <input type="number" min="1900" max="2050" ngModel="{{updateExperiencia?.fecha_inicio}}"
                                 name="fecha_inicio" class="form-control" id="fecha_inicio"
-                                placeholder="Año de inicio de actividades" />
+                                placeholder="Año de inicio de actividades" required />
                         </div>
                         <div class="mb-3">
                             <label for="fecha_fin" class="col-form-label">Año de fin de actividades | Actual</label>
@@ -132,15 +141,21 @@
                         </div>
                         <div class="mb-3">
                             <label for="imagen_logoEmp" class="col-form-label">Logo de la empresa</label>
-                            <input type="url" pattern="https://.*" ngModel="{{updateExperiencia?.imagen_logoEmp}}" name="imagen_logoEmp"
-                                class="form-control" id="imagen_logoEmp" placeholder="Url del logo de la empresa | https://ejemplo.com">
+                            <input type="url" pattern="https://.*" ngModel="{{updateExperiencia?.imagen_logoEmp}}"
+                                name="imagen_logoEmp" class="form-control" id="imagen_logoEmp"
+                                placeholder="Url del logo de la empresa | https://ejemplo.com">
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="edit-experiencia-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button (click)="onEditExperiencia(editForm.value)" class="btn btn-light"
-                                data-bs-dismiss="modal" type="submit">Guardar</button>
+                            <div *ngIf="editForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-experiencia-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="editForm.invalid" type="submit"
+                                    (click)="onEditExperiencia(editForm.value)" class="col-auto mx-2 btn btn-info"
+                                    data-bs-dismiss="modal">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>

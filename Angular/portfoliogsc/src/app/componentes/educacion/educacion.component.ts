@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Educacion } from 'src/app/models/educacion';
 import { EducacionService } from 'src/app/servicios/educacion.service';
+import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-educacion',
@@ -14,11 +15,17 @@ export class EducacionComponent implements OnInit {
   public educaciones: Educacion[] = [];
   public updateEducacion: Educacion | undefined;
   public deleteEducacion: Educacion | undefined;
+  isAdmin = false;
 
-  constructor(private educacionService: EducacionService) { }
+  constructor(private educacionService: EducacionService, private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getEducaciones();
+    if (this.tokenService.canConfig()) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   public getEducaciones(): void {
@@ -30,6 +37,7 @@ export class EducacionComponent implements OnInit {
       }
     })
   }
+
   public onOpenModal(mode: string, educacion?: Educacion): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -48,6 +56,7 @@ export class EducacionComponent implements OnInit {
     container?.appendChild(button);
     button.click();
   }
+
   public onAddEducacion(addForm: NgForm): void {
     document.getElementById('add-educacion-form')?.click();
     this.educacionService.addEducacion(addForm.value).subscribe(
@@ -82,7 +91,6 @@ export class EducacionComponent implements OnInit {
   }
 
   public onDeleteEducacion(idEdu: number): void {
-
     this.educacionService.deleteEducacion(idEdu).subscribe(
       {
         next: (response: void) => {

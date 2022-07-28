@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
-const AUTHORITIES_KEY = 'AuthAuthoritoes';
+const AUTHORITIES_KEY = 'AuthAuthorities';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class TokenService {
   roles: Array<string> = [];
-
+  isAdmin = false;
   constructor() { }
 
   public setToken(token: string): void {
@@ -21,13 +22,13 @@ export class TokenService {
     return sessionStorage.getItem(TOKEN_KEY)!;
   }
 
-  public setUserName(userName: string) {
+  public setUserName(userName: string): void {
     window.sessionStorage.removeItem(USERNAME_KEY);
     window.sessionStorage.setItem(USERNAME_KEY, userName);
   }
 
   public getUserName(): string {
-    return sessionStorage.getItem(TOKEN_KEY)!;
+    return sessionStorage.getItem(USERNAME_KEY)!;
   }
 
   public setAuthorities(authorities: string[]): void {
@@ -47,5 +48,14 @@ export class TokenService {
 
   public logOut(): void {
     window.sessionStorage.clear();
+  }
+
+  public canConfig(): boolean {
+    if (this.getToken() && (this.getAuthorities()[0] === "ROLE_ADMIN" || this.getAuthorities()[1] === "ROLE_ADMIN")) {
+      return this.isAdmin = true;
+    } else {
+      return this.isAdmin = false;
+    }
+    return this.isAdmin;
   }
 }

@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
+  maxFecha = Date.now();
+  year!: number;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.year =  new Date(this.maxFecha).getFullYear();
   }
 
 }

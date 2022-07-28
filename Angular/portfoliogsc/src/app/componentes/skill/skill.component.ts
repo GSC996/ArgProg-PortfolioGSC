@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Skill } from 'src/app/models/skill';
 import { SkillService } from 'src/app/servicios/skill.service';
+import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-skill',
@@ -14,11 +15,17 @@ export class SkillComponent implements OnInit {
   public skills: Skill[] = [];
   public updateSkill: Skill | undefined;
   public deleteSkill: Skill | undefined;
+  isAdmin = false;
 
-  constructor(private skillService: SkillService) { }
+  constructor(private skillService: SkillService, private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getSkills();
+    if (this.tokenService.canConfig()) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   public getSkills(): void {
@@ -30,6 +37,7 @@ export class SkillComponent implements OnInit {
       }
     })
   }
+
   public onOpenModal(mode: string, skill?: Skill): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -48,6 +56,7 @@ export class SkillComponent implements OnInit {
     container?.appendChild(button);
     button.click();
   }
+
   public onAddSkill(addForm: NgForm): void {
     document.getElementById('add-skill-form')?.click();
     this.skillService.addSkill(addForm.value).subscribe(
@@ -82,7 +91,6 @@ export class SkillComponent implements OnInit {
   }
 
   public onDeleteSkill(idSkill: number): void {
-
     this.skillService.deleteSkill(idSkill).subscribe(
       {
         next: (response: void) => {
@@ -95,5 +103,4 @@ export class SkillComponent implements OnInit {
       }
     )
   }
-
 }

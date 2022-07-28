@@ -4,17 +4,17 @@
         <div class="col text-left my-auto">
             <h2 class="my-auto p-3 bg-opacity-50">Proyectos Realizados</h2>
         </div>
-        <div class="col-auto text-right p-0 m-auto pe-2">
-            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#AddProyectoModal"
-                (click)="onOpenModal('add')">Añadir
-                <span class="sr-only">(current)</span>
-            </button>
+        <div class="col-auto text-right p-0 m-auto pe-3">
+            <ng-template [ngIf]="isAdmin"><button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#AddProyectoModal" (click)="onOpenModal('add')">Añadir
+                    <span class="sr-only">(current)</span>
+                </button></ng-template>
         </div>
     </div>
 
     <div class="row align-items-start ml-2 my-2 border border-3 rounded-3 border-light"
         *ngFor="let proyecto of proyectos">
-        <div class="col-12 col-sm-auto my-auto">
+        <div class="col col-lg-4 my-auto">
             <a href="{{proyecto.url_proyecto}}" title="{{proyecto.nombre}}" target="in_blank">
                 <div class="col-12 imagen" style="background-image: url({{proyecto.img_proyecto}});">
                 </div>
@@ -35,16 +35,18 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg text-right mb-2 mt-lg-1 ">
-            <button (click)="onOpenModal('edit', proyecto)" type="button" class="btn btn-light tooltips mr-1"
-                data-bs-toggle="modal" data-bs-target="#editProyectoModal" data-placement="top" data-toggle="tooltip"
-                data-original-title="Edit"><i class="fa fa-pencil"></i>
-            </button>
-            <button (click)="onOpenModal('delete', proyecto)" type="button" class="btn btn-secondary tooltips"
-                data-bs-toggle="modal" data-bs-target="#deleteProyectoModal" data-placement="top" data-toggle="tooltip"
-                data-original-title="Delete"><i class="fa fa-times"></i>
-            </button>
-        </div>
+        <ng-template [ngIf]="isAdmin">
+            <div class="col-12 col-lg text-right mb-2 mt-lg-1 ">
+                <button (click)="onOpenModal('edit', proyecto)" type="button" class="btn btn-info tooltips mr-1"
+                    data-bs-toggle="modal" data-bs-target="#editProyectoModal" data-placement="top"
+                    data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i>
+                </button>
+                <button (click)="onOpenModal('delete', proyecto)" type="button" class="btn btn-secondary tooltips"
+                    data-bs-toggle="modal" data-bs-target="#deleteProyectoModal" data-placement="top"
+                    data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i>
+                </button>
+            </div>
+        </ng-template>
     </div>
 
     <!--Modal addProy-->
@@ -59,36 +61,46 @@
                 </div>
                 <div class="modal-body">
                     <form #addForm="ngForm" (ngSubmit)="onAddProyecto(addForm)">
+
                         <div class="mb-3">
                             <label for="nombre" class="col-form-label">Nombre*</label>
-                            <input type="text" ngModel name="nombre" class="form-control" id="nombre"
+                            <input type="text" ngModel name="nombre" maxlength="50" class="form-control" id="nombre"
                                 placeholder="Título del proyecto" required>
                         </div>
                         <div class="mb-3">
                             <label for="fecha_realizacion" class="col-form-label">Fecha de realización*</label>
-                            <input type="number" min="1900" max="2050" ngModel name="fecha_realizacion" class="form-control"
-                                id="fecha_realizacion" placeholder="Año en que se realizó o inició" required />
+                            <input type="number" min="1900" max="2050" ngModel name="fecha_realizacion"
+                                class="form-control" id="fecha_realizacion" placeholder="Año en que se realizó o inició"
+                                required />
                         </div>
                         <div class="mb-3">
                             <label for="url_proyecto" class="col-form-label">Link al proyecto</label>
-                            <input type="url" pattern="https://.*" ngModel name="url_proyecto" class="form-control" id="url_proyecto"
+                            <input type="url" pattern="https://.*" ngModel name="url_proyecto" maxlength="255"
+                                class="form-control" id="url_proyecto"
                                 placeholder="Url del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
                             <label for="img_proyecto" class="col-form-label">Imagen</label>
-                            <input type="url" pattern="https://.*" ngModel name="img_proyecto" class="form-control" id="img_proyecto"
+                            <input type="url" pattern="https://.*" ngModel name="img_proyecto" maxlength="255"
+                                class="form-control" id="img_proyecto"
                                 placeholder="Url de la imagen del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="col-form-label">Descripción*</label>
-                            <textarea type="text" ngModel name="descripcion" class="form-control" id="descripcion"
-                                placeholder="Resumen del proyecto" required></textarea>
+                            <textarea type="text" ngModel name="descripcion" maxlength="255" class="form-control"
+                                id="descripcion" placeholder="Resumen del proyecto" required></textarea>
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="add-proyecto-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
+
+                            <div *ngIf="addForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-proyecto-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="addForm.invalid" type="submit"
+                                    class="col-auto mx-2 btn btn-info">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -110,36 +122,48 @@
                     <form #editForm="ngForm">
                         <div class="mb-3">
                             <label for="nombre" class="col-form-label">Nombre*</label>
-                            <input type="text" ngModel="{{updateProyecto?.nombre}}" name="nombre" class="form-control"
-                                id="nombre" placeholder="Título del proyecto" aria-describedby="emailHelp">
+                            <input type="text" ngModel="{{updateProyecto?.nombre}}" name="nombre" maxlength="50"
+                                class="form-control" id="nombre" placeholder="Título del proyecto"
+                                aria-describedby="emailHelp" required>
                         </div>
                         <input type="hidden" ngModel="{{updateProyecto?.idProy}}" name="idProy" class="form-control"
                             id="idProy" placeholder="" />
                         <div class="mb-3">
                             <label for="fecha_realizacion" class="col-form-label">Fecha de Realización*</label>
-                            <input type="text" ngModel="{{updateProyecto?.fecha_realizacion}}" name="fecha_realizacion"
-                                class="form-control" id="fecha_realizacion" placeholder="Año en que se realizó" />
+                            <input type="number" ngModel="{{updateProyecto?.fecha_realizacion}}"
+                                name="fecha_realizacion" min="1900" max="2050" class="form-control"
+                                id="fecha_realizacion" placeholder="Año en que se realizó" required />
                         </div>
                         <div class="mb-3">
                             <label for="url_proyecto" class="col-form-label">Link al Proyecto</label>
-                            <input type="url" pattern="https://.*" ngModel="{{updateProyecto?.url_proyecto}}" name="url_proyecto"
-                                class="form-control" id="url_proyecto" placeholder="Url del proyecto | https://ejemplo.com" />
+                            <input type="url" pattern="https://.*" ngModel="{{updateProyecto?.url_proyecto}}"
+                                name="url_proyecto" maxlength="255" class="form-control" id="url_proyecto"
+                                placeholder="Url del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
                             <label for="img_proyecto" class="col-form-label">Imagen</label>
-                            <input type="url" pattern="https://.*" ngModel="{{updateProyecto?.img_proyecto}}" name="img_proyecto"
-                                class="form-control" id="img_proyecto" placeholder="Url de la imagen del proyecto | https://ejemplo.com" />
+                            <input type="url" pattern="https://.*" ngModel="{{updateProyecto?.img_proyecto}}"
+                                name="img_proyecto" maxlength="255" class="form-control" id="img_proyecto"
+                                placeholder="Url de la imagen del proyecto | https://ejemplo.com" />
                         </div>
                         <div class="mb-3">
                             <label for="descripcion" class="col-form-label">Descripción*</label>
                             <textarea type="text" ngModel="{{updateProyecto?.descripcion}}" name="descripcion"
-                                class="form-control" id="descripcion" placeholder="Resumen del proyecto"></textarea>
+                                maxlength="255" class="form-control" id="descripcion" placeholder="Resumen del proyecto"
+                                required></textarea>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="edit-proyecto-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button (click)="onEditProyecto(editForm.value)" class="btn btn-light"
-                                data-bs-dismiss="modal" type="submit">Guardar</button>
+
+                            <div *ngIf="editForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-proyecto-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="editForm.invalid" type="submit"
+                                    (click)="onEditProyecto(editForm.value)" class="col-auto mx-2 btn btn-info"
+                                    data-bs-dismiss="modal">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -149,8 +173,8 @@
 
     <!--Modal deleteProy-->
 
-    <div class="modal fade" id="deleteProyectoModal"
-        tabindex="-1" aria-labelledby="deleteProyectoModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="deleteProyectoModal" tabindex="-1" aria-labelledby="deleteProyectoModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -170,7 +194,7 @@
     </div>
 
     <!--Campo vacio-->
-    
+
     <div *ngIf="proyectos?.length == 0" class="col-lg-12 col-md-12 col-sl-12">
         <div class="alert alert-info" role="alert">
             <h4 class="alert-heading">Campo vacío</h4>

@@ -7,24 +7,38 @@
 
                         <h2 class="mb-5"><b>Portfolio</b><br>Gustavo Coutinho</h2>
 
-                        <form #f="ngForm" (ngSubmit)="onLogin()" novalidate>
+                        <form [formGroup]="formPersona" (ngSubmit)="onLogin()">
                             <div class="form-outline mb-4">
-                                <input type="text" id="nombreUsuario" name="nombreUsuario"
-                                    class="form-control form-control-lg" [(ngModel)]="nombreUsuario" required />
                                 <label class="form-label" for="nombreUsuario">Usuario</label>
+                                <input type="text" id="nombreUsuario" name="nombreUsuario"
+                                    formControlName="nombreUsuario" class="form-control form-control-lg"
+                                    [(ngModel)]="nombreUsuario" required />
+                                <div *ngIf="NombreUsuario?.errors && NombreUsuario?.touched">
+                                    <p class="text-danger" *ngIf="NombreUsuario?.hasError('required')">
+                                        Campo requerido
+                                    </p>
+                                    <p class="text-danger" *ngIf="NombreUsuario?.hasError('maxlength')">
+                                        Debe tener como máximo 45 caracteres
+                                    </p>
+                                </div>
                             </div>
 
                             <div class="form-outline mb-4">
-                                <input type="password" id="password" name="password"
-                                    class="form-control form-control-lg" [(ngModel)]="password" required />
                                 <label class="form-label" for="password">Contraseña</label>
+                                <input type="password" id="password" name="password" formControlName="password"
+                                    class="form-control form-control-lg" [(ngModel)]="password" required />
+                                <div *ngIf="Password?.errors && Password?.touched">
+                                    <p class="text-danger" *ngIf="Password?.hasError('required')">
+                                        Campo requerido
+                                    </p>
+                                    <p class="text-danger" *ngIf="Password?.hasError('minlength')">
+                                        Debe tener como mínimo 4 caracteres
+                                    </p>
+                                </div>
                             </div>
-
                             <button class="btn btn-primary btn-lg btn-block" type="submit">Ingresar</button>
                         </form>
-
                         <hr class="my-4">
-
                     </div>
                 </div>
             </div>

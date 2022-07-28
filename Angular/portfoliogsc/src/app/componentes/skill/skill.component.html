@@ -4,11 +4,11 @@
         <div class="col text-left my-auto">
             <h2 class="my-auto p-3 bg-opacity-50 ">Hard & Soft Skills</h2>
         </div>
-        <div class="col-auto text-right p-0 m-auto pe-2">
-            <button type="button" class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#AddSkillModal"
-                (click)="onOpenModal('add')">Añadir
-                <span class="sr-only">(current)</span>
-            </button>
+        <div class="col-auto text-right p-0 m-auto pe-3">
+            <ng-template [ngIf]="isAdmin"><button type="button" class="btn btn-info btn-lg" data-bs-toggle="modal"
+                    data-bs-target="#AddSkillModal" (click)="onOpenModal('add')">Añadir
+                    <span class="sr-only">(current)</span>
+                </button></ng-template>
         </div>
     </div>
 
@@ -21,16 +21,19 @@
                 <label for="file">{{skill.nombreSkill}}</label>
                 <progress id="file" value="{{skill.porcentaje}}" max="100"> {{skill.porcentaje}}% </progress>
             </div>
-            <div class="col-auto text-right my-auto">
-                <button (click)="onOpenModal('edit', skill)" type="button" class="btn btn-light tooltips" id="boton"
-                    data-bs-toggle="modal" data-bs-target="#editSkillModal" data-placement="top" data-toggle="tooltip"
-                    data-original-title="Edit"><i class="fa fa-pencil"></i>
-                </button>
-                <button id="boton" (click)="onOpenModal('delete', skill)" type="button"
-                    class="btn btn-secondary tooltips" data-bs-toggle="modal" data-bs-target="#deleteSkillModal"
-                    data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i class="fa fa-times"></i>
-                </button>
-            </div>
+            <ng-template [ngIf]="isAdmin">
+                <div class="col-auto text-right my-auto">
+                    <button (click)="onOpenModal('edit', skill)" type="button" class="btn btn-info tooltips" id="boton"
+                        data-bs-toggle="modal" data-bs-target="#editSkillModal" data-placement="top"
+                        data-toggle="tooltip" data-original-title="Edit"><i class="fa fa-pencil"></i>
+                    </button>
+                    <button id="boton" (click)="onOpenModal('delete', skill)" type="button"
+                        class="btn btn-secondary tooltips" data-bs-toggle="modal" data-bs-target="#deleteSkillModal"
+                        data-placement="top" data-toggle="tooltip" data-original-title="Delete"><i
+                            class="fa fa-times"></i>
+                    </button>
+                </div>
+            </ng-template>
         </div>
     </div>
 
@@ -48,24 +51,36 @@
                     <form #addForm="ngForm" (ngSubmit)="onAddSkill(addForm)">
                         <div class="mb-3">
                             <label for="nombreSkill" class="col-form-label">Skill*</label>
-                            <input type="text" ngModel name="nombreSkill" class="form-control" id="nombreSkill"
-                                placeholder="Nombre de la skill" required>
+                            <input type="text" ngModel name="nombreSkill" maxlength="50" class="form-control"
+                                id="nombreSkill" placeholder="Nombre de la skill" required>
                         </div>
                         <div class="mb-3">
                             <label for="porcentaje" class="col-form-label">Nivel de dominio*</label>
-                            <input type="number" min="0" max="100" ngModel name="porcentaje" class="form-control" id="porcentaje"
-                                placeholder="Porcentaje" required />
+                            <div class="row mx-1">
+                                <input type="range" style="height: 3px;" min="0" max="100" ngModel name="porcentaje"
+                                    class="form-control slider col my-auto" id="porcentaje" required
+                                    oninput="amount.value=porcentaje.value" />
+                                <output class="col-auto mx-1 my-auto" id="amount" name="amount"
+                                    for="rangeInput">-</output>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="imagenSkill" class="col-form-label">Imagen</label>
-                            <input type="url" pattern="https://.*" ngModel name="imagenSkill" class="form-control" id="imagenSkill"
+                            <input type="url" pattern="https://.*" ngModel name="imagenSkill" maxlength="255"
+                                class="form-control" id="imagenSkill"
                                 placeholder="Url de una imagen representativa | https://ejemplo.com" />
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="add-skill-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button [disabled]="addForm.invalid" type="submit" class="btn btn-light">Guardar</button>
+
+                            <div *ngIf="addForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-skill-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="addForm.invalid" type="submit"
+                                    class="col-auto mx-2 btn btn-info">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -87,7 +102,7 @@
                     <form #editForm="ngForm">
                         <div class="mb-3">
                             <label for="nombreSkill" class="col-form-label">Skill*</label>
-                            <input type="text" ngModel="{{updateSkill?.nombreSkill}}" name="nombreSkill"
+                            <input type="text" ngModel="{{updateSkill?.nombreSkill}}" name="nombreSkill" maxlength="50"
                                 class="form-control" id="nombreSkill" placeholder="Nombre de la skill"
                                 aria-describedby="emailHelp">
                         </div>
@@ -95,20 +110,33 @@
                             id="idSkill" placeholder="" required>
                         <div class="mb-3">
                             <label for="porcentaje" class="col-form-label">Nivel de dominio*</label>
-                            <input type="number" min="0" max="100" ngModel="{{updateSkill?.porcentaje}}" name="porcentaje"
-                                class="form-control" id="porcentaje" placeholder="Porcentaje" required />
+                            <div class="row mx-1">
+                                <input type="range" style="height: 3px;" min="0" max="100"
+                                    ngModel="{{updateSkill?.porcentaje}}" name="porcentaje"
+                                    class="form-control slider col my-auto" id="porcentaje" required
+                                    oninput="amount.value=porcentaje.value" />
+                                <output class="col-auto mx-1 my-auto" id="amount" name="amount"
+                                    for="rangeInput">{{updateSkill?.porcentaje}}</output>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="imagenSkill" class="col-form-label">Imagen</label>
-                            <input type="text" ngModel="{{updateSkill?.imagenSkill}}" name="imagenSkill"
-                                class="form-control" id="imagenSkill" placeholder="Url de una imagen representativa | https://ejemplo.com" />
+                            <input type="text" ngModel="{{updateSkill?.imagenSkill}}" name="imagenSkill" maxlength="255"
+                                class="form-control" id="imagenSkill"
+                                placeholder="Url de una imagen representativa | https://ejemplo.com" />
                         </div>
                         <div class="modal-footer">
-                            <p class="col">* Requerido</p>
-                            <button type="button" id="edit-skill-form" class="btn btn-secondary"
-                                data-bs-dismiss="modal">Cerrar</button>
-                            <button (click)="onEditSkill(editForm.value)" class="btn btn-light"
-                                data-bs-dismiss="modal" type="submit">Guardar</button>
+
+                            <div *ngIf="editForm.invalid">
+                                <p class="row">* Campos requeridos | Formato inválido</p>
+                            </div>
+                            <div class="row">
+                                <button type="button" id="add-skill-form" class="col-auto mx-2 btn btn-secondary"
+                                    data-bs-dismiss="modal">Cerrar</button>
+                                <button [disabled]="editForm.invalid" type="submit"
+                                    (click)="onEditSkill(editForm.value)" class="col-auto mx-2 btn btn-info"
+                                    data-bs-dismiss="modal">Guardar</button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -118,8 +146,8 @@
 
     <!--Modal deleteSkill-->
 
-    <div class="modal fade" id="deleteSkillModal"
-        tabindex="-1" aria-labelledby="deleteSkillModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal fade" id="deleteSkillModal" tabindex="-1" aria-labelledby="deleteSkillModalLabel"
+        aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

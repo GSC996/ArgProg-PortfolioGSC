@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Experiencia } from 'src/app/models/experiencia';
 import { ExperienciaService } from 'src/app/servicios/experiencia.service';
+import { TokenService } from 'src/app/servicios/token.service';
 
 @Component({
   selector: 'app-experiencia',
@@ -14,11 +15,17 @@ export class ExperienciaComponent implements OnInit {
   public experiencias: Experiencia[] = [];
   public updateExperiencia: Experiencia | undefined;
   public deleteExperiencia: Experiencia | undefined;
+  isAdmin = false;
 
-  constructor(private experienciaService: ExperienciaService) { }
+  constructor(private experienciaService: ExperienciaService, private tokenService: TokenService) { }
 
   ngOnInit(): void {
     this.getExperiencias();
+    if (this.tokenService.canConfig()) {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   public getExperiencias(): void {
@@ -30,6 +37,7 @@ export class ExperienciaComponent implements OnInit {
       }
     })
   }
+
   public onOpenModal(mode: string, experiencia?: Experiencia): void {
     const container = document.getElementById('main-container');
     const button = document.createElement('button');
@@ -48,6 +56,7 @@ export class ExperienciaComponent implements OnInit {
     container?.appendChild(button);
     button.click();
   }
+
   public onAddExperiencia(addForm: NgForm): void {
     document.getElementById('add-experiencia-form')?.click();
     this.experienciaService.addExperiencia(addForm.value).subscribe(
@@ -82,7 +91,6 @@ export class ExperienciaComponent implements OnInit {
   }
 
   public onDeleteExperiencia(idExp: number): void {
-
     this.experienciaService.deleteExperiencia(idExp).subscribe(
       {
         next: (response: void) => {
@@ -95,5 +103,4 @@ export class ExperienciaComponent implements OnInit {
       }
     )
   }
-
 }
